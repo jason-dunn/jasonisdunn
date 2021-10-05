@@ -1,12 +1,104 @@
 ﻿@inherits LayoutComponentBase
+@using jasonisdunn.Shared;
+
 
 <div class="page">
     <div class="sidebar">
         <NavMenu />
     </div>
-    <div class="main">
-        <div class="content px-4">
-            @Body
-        </div>
-    </div>
+    <main>
+       @if(!LoggedIn) 
+       {
+    <div>   
+        <table class="hiddentable">
+            <tr><td></td>
+                <td><table class="maintable" >
+            <tr style="height:3px">
+                <td colspan="10"></td>
+                <td colspan="1">
+                <i class="" aria-hidden="true">   </i>
+                </td>
+                <td colspan="1">
+                <i class="" aria-hidden="true">   </i>
+               </td>
+            </tr>
+            <tr style="height:8px">
+                <td colspan="10"></td>
+                <td colspan="1" style=" text-align:center">
+                <i  aria-hidden="true">   </i>
+                </td>
+                <td colspan="1" style=" text-align:center">
+                <i  aria-hidden="true">   </i>
+               </td>
+            </tr>
+              <tr style="height:10px">
+                <td colspan="10"></td>
+                <td colspan="1" style=" text-align:center"><NavLink href="register" class="nav-item nav-link">Register</NavLink></td>
+                <td colspan="1" style=" text-align:center"><NavLink href="login" class="nav-item nav-link"> Login </NavLink></td>
+            </tr>
+        </table>  
+        </td>
+        </tr>
+        </table>
+     </div>
+        }
+     else
+        {
+         <div>
+           <table class="hiddentable">
+            <tr><td></td>
+                <td><table class="alttable" >
+            <tr style="height:3px">
+                <td colspan="10"></td>
+                <td colspan="1">
+                <i class="" aria-hidden="true">   </i>
+                </td>
+                <td colspan="1">
+                <i class="" aria-hidden="true">   </i>
+               </td>
+            </tr>
+            <tr style="height:5px">
+                <td colspan="10"></td>
+                <td colspan="1" style=" text-align:center">
+                <i class="fa fa-smile-o" aria-hidden="true"></i>
+                </td>
+                <td colspan="1" style="text-align:center">
+                <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+               </td>
+            </tr>
+            <tr style="height:10px">
+                 <td colspan="10"></td>
+                 <td colspan="1">Hello, @UserName!</td>
+                 <td colspan="1" style=" text-align:center"><NavLink href="" class="nav-item nav-link">Logout</NavLink></td>
+             </tr>
+        </table>  
+              </td>
+        </tr>
+        </table>  
+     </div>  
+        }
+        <article class="content px-4">
+            @Body     
+        </article>
+    </main>
 </div>
+@code{
+
+    bool LoggedIn, LoggedOut;
+    string UserName;
+    protected async override void OnInitialized()
+    {  
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+        }
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+    }
+}
