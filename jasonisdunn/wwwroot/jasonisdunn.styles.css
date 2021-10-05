@@ -1,0 +1,235 @@
+/* _content/jasonisdunn/Shared/MainLayout.razor.rz.scp.css */
+.page[b-hsx9slq7nx] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.main[b-hsx9slq7nx] {
+    flex: 1;
+}
+
+.sidebar[b-hsx9slq7nx] {
+   background-color:  #007bff ;
+
+}
+
+.navbar{
+background-color : #007bff;
+}
+
+.navbar-toggler{
+    width: 47px;
+    height: 32px;
+    background-color: #7eb444;
+    border:solid;
+    border-color:white;
+}
+
+.navbar-toggler .line{
+    width: 150%;
+    float: left;
+    height: 2px;
+    background-color: #fff;
+    margin-bottom: 5px;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 48 52' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.top-row[b-hsx9slq7nx] {
+    background-color: #000000;
+    border-bottom: 1px solid #000000;
+    justify-content: flex-end;
+    
+    max-height: 0px;
+    display: flex;
+    align-items: center;
+}
+
+.top-row[b-hsx9slq7nx]  a, .top-row .btn-link[b-hsx9slq7nx] {
+    white-space: nowrap;
+    margin-left: 1.5rem;
+}
+
+.top-row a:first-child[b-hsx9slq7nx] {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+i {
+   margin-inline: 8px 0px;
+}
+
+.hiddentable {
+    table-layout: fixed;
+    max-width: 100%;
+    min-width: 100%;
+}
+
+.hiddentable tr {
+    border: none;
+}
+
+.hiddentable td {
+    table-layout: fixed;
+    line-height: 1px;
+    white-space: pre-line;
+    width:100vw;
+    border: none;
+}
+
+.maintable {
+    table-layout: fixed;
+    float:right;
+}
+
+.maintable tr {
+    border: none;
+}
+
+.maintable td {
+    border: none;
+    max-width: 115px;
+    min-width: 115px;
+    line-height: 1px;
+    white-space:pre-line;
+    margin: 100px;
+}
+
+.alttable {
+    table-layout: fixed;
+    float: right;
+}
+
+.alttable tr {
+    border: none;
+}
+
+.alttable td {
+    border: none;
+    max-width: 400px;
+    min-width: 115px;
+    line-height: 1px;
+    white-space: pre-line;
+    margin: 100px;
+}
+
+@media (max-width: 640.98px) {
+    .top-row:not(.auth)[b-hsx9slq7nx] {
+        display: none;
+    }
+
+    .top-row.auth[b-hsx9slq7nx] {
+        justify-content: space-between;
+    }
+
+    .top-row a[b-hsx9slq7nx], .top-row .btn-link[b-hsx9slq7nx] {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 641px) {
+    .page[b-hsx9slq7nx] {
+        flex-direction: row;
+    }
+
+    .sidebar[b-hsx9slq7nx] {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+.navbar-toggler{
+    width: 47px;
+    height: 32px;
+    background-color: #7eb444;
+    border:solid;
+ border-color:white;
+}
+.navbar-toggler .line{
+    width: 150%;
+    float: left;
+    height: 2px;
+    background-color: #fff;
+    margin-bottom: 5px;
+}
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 48 52' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+    .top-row[b-hsx9slq7nx] {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+   	background-color: #000000;
+   	border-bottom: 1px solid #000000;
+    }
+
+    .main > div[b-hsx9slq7nx] {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+}
+/* _content/jasonisdunn/Shared/NavMenu.razor.rz.scp.css */
+.navbar-toggler[b-smicq62xzm] {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.top-row[b-smicq62xzm] {
+    height: 4.5rem;
+}
+
+.navbar-brand[b-smicq62xzm] {
+    font-size: 1.1rem;
+}
+
+.oi[b-smicq62xzm] {
+    width: 2rem;
+    font-size: 1.1rem;
+    vertical-align: text-top;
+    top: -2px;
+}
+
+.nav-item[b-smicq62xzm] {
+    font-size: 0.9rem;
+    padding-bottom: 0.5rem;
+}
+
+    .nav-item:first-of-type[b-smicq62xzm] {
+        padding-top: 1rem;
+    }
+
+    .nav-item:last-of-type[b-smicq62xzm] {
+        padding-bottom: 1rem;
+    }
+
+    .nav-item[b-smicq62xzm]  a {
+        color: #d7d7d7;
+        border-radius: 4px;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        line-height: 3rem;
+    }
+
+.nav-item[b-smicq62xzm]  a.active {
+    background-color: rgba(255,255,255,0.25);
+    color: white;
+}
+
+.nav-item[b-smicq62xzm]  a:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+}
+
+@media (min-width: 641px) {
+    .navbar-toggler[b-smicq62xzm] {
+        display: none;
+    }
+
+    .collapse[b-smicq62xzm] {
+        /* Never collapse the sidebar for wide screens */
+        display: block;
+    }
+}
