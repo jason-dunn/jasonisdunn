@@ -13,6 +13,7 @@
 @inject HttpClient Http
 @inject NavigationManager NavigationManager
 
+
 <div class="emailcontent">
     <div class="email">
         <div class="form @formVisibility" id="form" tabindex="0">
@@ -127,11 +128,7 @@
     {
         if (firstRender)
         {
-        }
-        else
-        {
-        }
-        StateHasChanged();
+        }        StateHasChanged();
         await Task.Delay(0);
     }
 

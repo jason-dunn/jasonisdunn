@@ -7,11 +7,21 @@
 main {
     flex: 1;
 }
+.my-top-row {
+    position: relative;
+    left: -50px;
+    top:50px;
+}
+
+.MudButton{
+    margin: 20px;
+}
 
 i {
    margin-inline: 8px 0px;
 }
 .hiddentable {
+
     table-layout: fixed;
     max-width: 100%;
     min-width: 100%;
@@ -64,6 +74,7 @@ i {
 }
 
 .sidebar {
+    position:absolute;
     background-color:#007bff ;
 }
 
