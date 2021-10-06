@@ -1,0 +1,140 @@
+.email {
+    height: 70vh;
+    margin-top: .5rem;
+    margin-bottom: 3rem;
+}
+
+.emailcontent {
+    position: relative;
+    overflow-y: scroll;
+    margin-top: 25px;
+}
+
+.tableemail {
+
+}
+    .tableemail tr {
+        width: 1%;
+
+    }
+
+    .tableemail td {
+        width: 1%;
+    }
+
+.tableemailcontent {
+
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+    .tableemailcontent tr {
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
+
+    .tableemailcontent td {
+        text-align: left;
+        min-width: 240px;
+        width: 200px;
+        height: 1.1rem;
+
+        /* font-size for the whole form*/
+        /* -----------------------------*/
+        font-size: 1rem;
+        /* -----------------------------*/
+    }
+
+    .tableemailcontent label {
+        text-align: left;
+        width: 200px;
+    }
+
+    .tableemailcontent input {
+        text-align: left;
+    }
+
+    .tableemailcontent textarea {
+        text-align: left;
+    }
+
+.tableemailsubmit {
+    margin: 0 auto;
+    text-align: center;
+}
+
+    .tableemailsubmit th {
+        margin-top: 100%;
+        margin-bottom: 1%;
+    }
+
+    .tableemailsubmit td {
+        font-size: .8rem;
+    }
+.btn-primary:not(:disabled):not(.disabled) {
+    background: #007bff;
+}
+input[type=button], input[type=submit], input[type=reset] {
+    background-color: #1861ac;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    width: 108px;
+    border: 1px solid black;
+    border-radius: 14px;
+    font-size: .8rem;
+}
+
+button {
+    display: inline-block;
+    border: none;
+    margin: 0;
+    text-decoration: wavy;
+    color: #ffffff;
+    background-color: #1861ac;
+    border: 1px solid #d7d7d7;
+    border-radius: .3rem;
+    font-size: .8rem;
+    cursor: pointer;
+    text-align: center;
+    width: 200px;
+    transition: background 250ms ease-in-out, transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+    button:hover,
+    button:focus {
+        color: #fff;
+        background-color: #0069d9;
+        border-color: #0062cc
+    }
+
+    button:focus {
+        box-shadow: 0 0 0 .1rem rgba(38,143,255,.5);
+        outline: 1px solid #fff;
+    }
+
+    button:active {
+        transform: scale(0.99);
+    }
+
+.tableemailcontinue {
+    margin-top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: .8rem;
+}
+
+    .tableemailcontinue th {
+        margin-top: 5%;
+        margin-bottom: 5%;
+    }
+
+    .tableemailcontinue td {
+        font-size: 1rem;
+    }
+

@@ -8,63 +8,8 @@ main {
     flex: 1;
 }
 
-i {
-   margin-inline: 8px 0px;
-}
-.hiddentable {
-    table-layout: fixed;
-    max-width: 100%;
-    min-width: 100%;
-}
-
-    .hiddentable tr {
-        border: none;
-    }
-
-    .hiddentable td {
-        table-layout: fixed;
-        line-height: 1px;
-        white-space: pre-line;
-        margin: 100px;
-    }
-
-.maintable {
-    table-layout: fixed;
-    float:right;
-}
-    .maintable tr {
-        border: none;
-    }
-
-    .maintable td {
-        border: none;
-        max-width: 115px;
-        min-width: 115px;
-        line-height: 1px;
-        white-space:pre-line;
-        margin: 100px;
-    }
-
-.alttable {
-    table-layout: fixed;
-    float: right;
-}
-
-    .alttable tr {
-        border: none;
-    }
-
-.alttable td {
-    border: none;
-    max-width: 400px;
-    min-width: 115px;
-    line-height: 1px;
-    white-space: pre-line;
-    margin: 100px;
-}
-
 .sidebar {
-    background-color:#007bff ;
+    background-color: #007bff;
 }
 
 .top-row {
@@ -76,7 +21,7 @@ i {
     align-items: center;
 }
 
-    .top-row ::deep a, .top-row .btn-link {
+    .top-row  a, .top-row .btn-link {
         white-space: nowrap;
         margin-left: 1.5rem;
     }
@@ -106,7 +51,6 @@ i {
     }
 
     .sidebar {
-        width: 250px;
         height: 100vh;
         position: sticky;
         top: 0;

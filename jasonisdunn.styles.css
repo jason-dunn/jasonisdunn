@@ -1,0 +1,449 @@
+/* _content/jasonisdunn/Pages/Email.razor.rz.scp.css */
+.email[b-us8rfyb8sl] {
+    height: 70vh;
+    margin-top: .5rem;
+    margin-bottom: 3rem;
+    margin-left: 3rem;
+    margin-right: 3rem;
+}
+
+.emailcontent[b-us8rfyb8sl] {
+    position: relative;
+    overflow-y: scroll;
+    margin-top: 25px;
+}
+
+.tableemail[b-us8rfyb8sl] {
+}
+
+    .tableemail tr[b-us8rfyb8sl] {
+        width: 1%;
+    }
+
+    .tableemail td[b-us8rfyb8sl] {
+        width: 1%;
+    }
+
+.tableemailcontent[b-us8rfyb8sl] {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+    .tableemailcontent tr[b-us8rfyb8sl] {
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
+
+    .tableemailcontent td[b-us8rfyb8sl] {
+        text-align: left;
+        min-width: 240px;
+        width: 200px;
+        height: 1.1rem;
+
+        /* font-size for the whole form*/
+        /* -----------------------------*/
+        font-size: 1rem;
+        /* -----------------------------*/
+    }
+
+    .tableemailcontent label[b-us8rfyb8sl] {
+        text-align: left;
+        width: 200px;
+    }
+
+    .tableemailcontent input[b-us8rfyb8sl] {
+        text-align: left;
+    }
+
+    .tableemailcontent textarea[b-us8rfyb8sl] {
+        text-align: left;
+    }
+
+.tableemailsubmit[b-us8rfyb8sl] {
+    margin: 0 auto;
+    text-align: center;
+}
+
+    .tableemailsubmit th[b-us8rfyb8sl] {
+        margin-top: 100%;
+        margin-bottom: 1%;
+    }
+
+    .tableemailsubmit td[b-us8rfyb8sl] {
+        font-size: .8rem;
+    }
+.btn-primary:not(:disabled):not(.disabled)[b-us8rfyb8sl] {
+    background: #007bff;
+}
+input[type=button][b-us8rfyb8sl], input[type=submit][b-us8rfyb8sl], input[type=reset][b-us8rfyb8sl] {
+    background-color: #1861ac;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    width: 108px;
+    border: 1px solid black;
+    border-radius: 14px;
+    font-size: .8rem;
+}
+
+button[b-us8rfyb8sl] {
+    display: inline-block;
+    border: none;
+    margin: 0;
+    text-decoration: wavy;
+    color: #ffffff;
+    background-color: #1861ac;
+    border: 1px solid #d7d7d7;
+    border-radius: .3rem;
+    font-size: .8rem;
+    cursor: pointer;
+    text-align: center;
+    width: 200px;
+    transition: background 250ms ease-in-out, transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+    button:hover[b-us8rfyb8sl],
+    button:focus[b-us8rfyb8sl] {
+        color: #fff;
+        background-color: #0069d9;
+        border-color: #0062cc
+    }
+
+    button:focus[b-us8rfyb8sl] {
+        box-shadow: 0 0 0 .1rem rgba(38,143,255,.5);
+        outline: 1px solid #fff;
+    }
+
+    button:active[b-us8rfyb8sl] {
+        transform: scale(0.99);
+    }
+
+.tableemailcontinue[b-us8rfyb8sl] {
+    margin-top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: .8rem;
+}
+
+    .tableemailcontinue th[b-us8rfyb8sl] {
+        margin-top: 5%;
+        margin-bottom: 5%;
+    }
+
+    .tableemailcontinue td[b-us8rfyb8sl] {
+        font-size: 1rem;
+    }
+
+/* _content/jasonisdunn/Shared/EmailLayout.razor.rz.scp.css */
+.page[b-czsphj3c3k] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+main[b-czsphj3c3k] {
+    flex: 1;
+}
+
+.sidebar[b-czsphj3c3k] {
+    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #007bff 70%);
+}
+
+.top-row[b-czsphj3c3k] {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #d6d5d5;
+    justify-content: flex-end;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+
+    .top-row  a[b-czsphj3c3k], .top-row .btn-link[b-czsphj3c3k] {
+        white-space: nowrap;
+        margin-left: 1.5rem;
+    }
+
+    .top-row a:first-child[b-czsphj3c3k] {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+@media (max-width: 640.98px) {
+    .top-row:not(.auth)[b-czsphj3c3k] {
+        display: none;
+    }
+
+    .top-row.auth[b-czsphj3c3k] {
+        justify-content: space-between;
+    }
+
+    .top-row a[b-czsphj3c3k], .top-row .btn-link[b-czsphj3c3k] {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 641px) {
+    .page[b-czsphj3c3k] {
+        flex-direction: row;
+    }
+
+    .sidebar[b-czsphj3c3k] {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+    .top-row[b-czsphj3c3k] {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .top-row[b-czsphj3c3k], article[b-czsphj3c3k] {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+}
+/* _content/jasonisdunn/Shared/MainLayout.razor.rz.scp.css */
+.page[b-hsx9slq7nx] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.main[b-hsx9slq7nx] {
+    flex: 1;
+}
+
+.sidebar[b-hsx9slq7nx] {
+   background-color:  #007bff ;
+
+}
+
+.navbar{
+background-color : #007bff;
+}
+
+.navbar-toggler{
+    width: 47px;
+    height: 38px;
+    background-color: #7eb444;
+    border:solid;
+    border-color:white;
+}
+
+.navbar-toggler .line{
+    width: 150%;
+    float: left;
+    height: 2px;
+    background-color: #fff;
+    margin-bottom: 5px;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 48 42' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.top-row[b-hsx9slq7nx] {
+    background-color: #000000;
+    border-bottom: 1px solid #000000;
+    justify-content: flex-end;
+    
+    max-height: 0px;
+    display: flex;
+    align-items: center;
+}
+
+.top-row[b-hsx9slq7nx]  a, .top-row .btn-link[b-hsx9slq7nx] {
+    white-space: nowrap;
+    margin-left: 1.5rem;
+}
+
+.top-row a:first-child[b-hsx9slq7nx] {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+i {
+   margin-inline: 8px 0px;
+}
+
+.hiddentable {
+    table-layout: fixed;
+    max-width: 100%;
+    min-width: 100%;
+}
+
+.hiddentable tr {
+    border: none;
+}
+
+.hiddentable td {
+    table-layout: fixed;
+    line-height: 1px;
+    white-space: pre-line;
+    width:100vw;
+    border: none;
+}
+
+.maintable {
+    table-layout: fixed;
+    float:right;
+}
+
+.maintable tr {
+    border: none;
+}
+
+.maintable td {
+    border: none;
+    max-width: 115px;
+    min-width: 115px;
+    line-height: 1px;
+    white-space:pre-line;
+    margin: 100px;
+}
+
+.alttable {
+    table-layout: fixed;
+    float: right;
+}
+
+.alttable tr {
+    border: none;
+}
+
+.alttable td {
+    border: none;
+    max-width: 400px;
+    min-width: 115px;
+    line-height: 1px;
+    white-space: pre-line;
+    margin: 100px;
+}
+
+@media (max-width: 640.98px) {
+    .top-row:not(.auth)[b-hsx9slq7nx] {
+        display: none;
+    }
+
+    .top-row.auth[b-hsx9slq7nx] {
+        justify-content: space-between;
+    }
+
+    .top-row a[b-hsx9slq7nx], .top-row .btn-link[b-hsx9slq7nx] {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 641px) {
+    .page[b-hsx9slq7nx] {
+        flex-direction: row;
+    }
+
+    .sidebar[b-hsx9slq7nx] {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+.navbar-toggler{
+    width: 47px;
+    height: 38px;
+    background-color: #7eb444;
+    border:solid;
+ border-color:white;
+}
+.navbar-toggler .line{
+    width: 150%;
+    float: left;
+    height: 2px;
+    background-color: #fff;
+    margin-bottom: 5px;
+}
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 48 42' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+    .top-row[b-hsx9slq7nx] {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+   	background-color: #000000;
+   	border-bottom: 1px solid #000000;
+    }
+
+    .main > div[b-hsx9slq7nx] {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+}
+/* _content/jasonisdunn/Shared/NavMenu.razor.rz.scp.css */
+.navbar-toggler[b-smicq62xzm] {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.top-row[b-smicq62xzm] {
+    height: 4.5rem;
+}
+
+.navbar-brand[b-smicq62xzm] {
+    font-size: 1.1rem;
+}
+
+.oi[b-smicq62xzm] {
+    width: 2rem;
+    font-size: 1.1rem;
+    vertical-align: text-top;
+    top: -2px;
+}
+
+.nav-item[b-smicq62xzm] {
+    font-size: 0.9rem;
+    padding-bottom: 0.5rem;
+}
+
+    .nav-item:first-of-type[b-smicq62xzm] {
+        padding-top: 1rem;
+    }
+
+    .nav-item:last-of-type[b-smicq62xzm] {
+        padding-bottom: 1rem;
+    }
+
+    .nav-item[b-smicq62xzm]  a {
+        color: #d7d7d7;
+        border-radius: 4px;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        line-height: 3rem;
+    }
+
+.nav-item[b-smicq62xzm]  a.active {
+    background-color: rgba(255,255,255,0.25);
+    color: white;
+}
+
+.nav-item[b-smicq62xzm]  a:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+}
+
+@media (min-width: 641px) {
+    .navbar-toggler[b-smicq62xzm] {
+        display: none;
+    }
+
+    .collapse[b-smicq62xzm] {
+        /* Never collapse the sidebar for wide screens */
+        display: block;
+    }
+}

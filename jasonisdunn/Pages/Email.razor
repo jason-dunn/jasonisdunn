@@ -1,0 +1,198 @@
+﻿@page  "/email"
+@layout EmailLayout
+
+@using System.Net.Http;
+@using Newtonsoft.Json.Linq;
+@using Microsoft.AspNetCore.Components.Forms;
+@using Microsoft.JSInterop;
+@using System.Net;
+@using System.Net.Mail;
+@using jasonisdunn.Data;
+@using jasonisdunn.Shared
+@inject IJSRuntime JSRuntime
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<div class="emailcontent">
+    <div class="email">
+        <div class="form @formVisibility" id="form" tabindex="0">
+            <EditForm style="color:#007bff" Model="@_EmailFormModel" OnValidSubmit="OnSubmit">
+                <DataAnnotationsValidator />
+                <table class="tableemail" >
+                    <tbody>
+                        <tr>
+                            <td>
+                                <table class="tableemailcontent">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <label for="Name">Name</label>
+                                                <InputText id="Name" @bind-Value="_EmailFormModel.Name" />
+                                                <ValidationMessage For="@(() => _EmailFormModel.Name)" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label for="Email">Email</label>
+                                                <InputText id="Email" @bind-Value="_EmailFormModel.Email" />
+                                                <ValidationMessage  For="@(() => _EmailFormModel.Email)" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label for="Message">Message</label>
+                                                <InputTextArea style="margin-bottom:2px" id="Message" @bind-Value="_EmailFormModel.Message" rows="4"  />
+                                                <ValidationMessage For="@(() => _EmailFormModel.Message)" />
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-10">
+                                                            <button id="submitBtn" class="btn btn-primary @submitVisibility"
+                                                                    type="submit">
+                                                                <i class="far fa-paper-plane"> </i>   Submit
+                                                            </button>
+                                                            <div class="bg-primary text-light rounded  @sendVisibility">
+                                                                <i class="fa fa-cog fa-spin"> </i>   Sending
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-10">
+                                                            <button id="cancelBtn" class="btn btn-primary @cancelVisibility"
+                                                                    type="button" @onclick="OnCancel">
+                                                                <i class="far fa-window-close"> </i>   Cancel
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </EditForm>
+            <br />
+            <br />
+            <br />
+        </div>
+        <table class="tableemailcontinue">
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="bg-primary text-light rounded @sentVisibility">
+                            <i class=""></i> Successfully sent your email message.<br />Thanks for the feedback!<br />
+                        </div>
+                    </td>
+                </tr>
+                <tr><br /></tr>
+                <tr>
+                    <td>
+                        <button id="continueBtn" class="btn btn-primary @sentVisibility"
+                                type="submit" onclick="window.history.back()">
+                            <i class="fa fa-hand-point-right" style="margin-left:14px"></i> Continue
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+@code {
+    private EmailFormModel _EmailFormModel = new EmailFormModel();
+    private string formVisibility = "d-block";
+    private string submitVisibility = "d-block";
+    private string cancelVisibility  = "d-block";
+    private string sendVisibility = "d-none";
+    private string sentVisibility = "d-none";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(0);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+        }
+        else
+        {
+        }
+        StateHasChanged();
+        await Task.Delay(0);
+    }
+
+    private async Task OnSubmit()
+    {
+        submitVisibility = "d-none";
+        cancelVisibility = "d-none";
+        await SubmitForm();
+        sendVisibility = "d-inline-block";
+        await Task.Delay(1000);
+        sendVisibility = "d-none";
+        await Task.Delay(1000);
+        formVisibility = "d-none";
+        sentVisibility = "d-inline-block";
+    }
+
+    private async Task SubmitForm()
+    {
+        var json = Newtonsoft.Json.JsonConvert.SerializeObject(_EmailFormModel);
+        var stringContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+        try
+        {
+            var credentials = new NetworkCredential("01fa3dc1426e0b2b593ac9144547c317", "5128a955c7f4f8b57c9467e71ada4484");
+            var mail = new MailMessage()
+            {
+                From = new MailAddress("contact@jasonisdunn.tech"),
+                Subject = "Website Inquiry",
+                Body = FormattedBody(_EmailFormModel.Name, _EmailFormModel.Email, _EmailFormModel.Message)
+            };
+            mail.IsBodyHtml = true;
+            mail.To.Add(new MailAddress("contact@jasonisdunn.tech"));
+            mail.CC.Add(new MailAddress(_EmailFormModel.Email));
+            var client = new SmtpClient()
+            {
+                UseDefaultCredentials = false,
+                Host = "in-v3.mailjet.com",
+                Credentials = credentials,
+                Port = 587,
+                EnableSsl = true
+            };
+            client.Send(mail);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+        await Task.Delay(0);
+    }
+
+    private string FormattedBody(string name, string email, string message)
+    {
+        var senderInfo = String.Format(
+            "<b>From</b>: {0}<br/><b>Email</b>: {1}<br/>", name, email);
+        return senderInfo + message;
+    }
+      private async Task OnCancel()
+    {
+         NavigationManager.NavigateTo("");
+         await Task.Delay(0);
+    }
+}
+
+
+
