@@ -9,15 +9,15 @@ a, .btn-link {
 }
 
 h1 {
-    color: #007bff;
+    color: #448AFF;
 }
 .table th, td{
-    color: #007bff;
+    color: #448AFF;
 }
 .btn-primary {
     color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
+    background-color: #448AFF;
+    border-color: #448AFF;
 }
 
 .content {

@@ -72,7 +72,7 @@
         font-size: .8rem;
     }
 .btn-primary:not(:disabled):not(.disabled) {
-    background: #007bff;
+    background: #448AFF;
 }
 input[type=button], input[type=submit], input[type=reset] {
     background-color: #1861ac;
