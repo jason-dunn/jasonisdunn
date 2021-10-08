@@ -7,6 +7,7 @@ namespace jasonisdunn.Data
     public class WeatherForecastService
     {
 
+        WeatherForecast[] weatherForecast = new WeatherForecast[10];
         private int intTemp, intSummary;
 
         private static readonly string[] Summaries = new[]
@@ -14,14 +15,36 @@ namespace jasonisdunn.Data
         "Bracing","Freezing", "Frosty",  "Cold", "Warm", "Hot", "Sweltering", "Scorching"
     };
 
-        public Task<WeatherForecast[]> GetForecastAsync(DateTime startDate)
+        public Task<WeatherForecast[]> GetForecastAsync(DateTime startDate, bool _bool)
         {
-            return Task.FromResult(Enumerable.Range(1, 25).Select(index => new WeatherForecast
+            if (_bool)
             {
-                Date = startDate.AddDays(index),
-                TemperatureC = newtemp(),
-                Summary = Summaries[intSummary],
-            }).ToArray());
+                for (int i = 0; i < weatherForecast.Length; i++)
+                {
+                    weatherForecast[i] = new WeatherForecast();
+                }
+                foreach (var item in weatherForecast)
+                {
+                    item.Date = startDate;
+                    item.TemperatureC = 0;
+                    item.Summary = Summaries[0];
+                }
+                return Task.FromResult(Enumerable.Range(1, 10).Select(index => new WeatherForecast
+                {
+                    Date = weatherForecast[index-1].Date = startDate.AddDays(index),
+                    TemperatureC = weatherForecast[index-1].TemperatureC = newtemp(),
+                    Summary = weatherForecast[index-1].Summary =Summaries[intSummary]
+                }).ToArray());
+            }
+            else
+            {
+                return Task.FromResult(Enumerable.Range(1, 10).Select(index => new WeatherForecast
+                {
+                    Date = weatherForecast[index-1].Date,
+                    TemperatureC = weatherForecast[index-1].TemperatureC,
+                    Summary = weatherForecast[index-1].Summary
+                }).ToArray());
+            }
         }
 
         private int newtemp()

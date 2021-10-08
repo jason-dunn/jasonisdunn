@@ -1,4 +1,5 @@
 using jasonisdunn.Data;
+using jasonisdunn.Shared;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -31,6 +32,7 @@ namespace jasonisdunn
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<EmailFormModel>();
+            services.AddScoped<MainLayoutState>();
             if (!services.Any(x => x.ServiceType == typeof(HttpClient)))
             {
                 services.AddScoped<HttpClient>(s =>

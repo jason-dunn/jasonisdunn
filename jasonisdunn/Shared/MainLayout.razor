@@ -1,6 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @using jasonisdunn.Shared;
-
+@inject MainLayoutState AppState
 @if (!collapseNavMenu)
 {
     <div class="page">  
@@ -14,7 +14,6 @@
     Style="width:30px; left:3px; top:45vh"/>
     </div>
         <main>
-
             @if (!LoggedIn)
             {
                 <div>   
@@ -241,8 +240,8 @@ else
         collapseNavMenu = toggled;
         if (collapseNavMenu)
         {
-                collapseNavMenu = !collapseNavMenu;
-                collapseNavMenu = true;   
+            collapseNavMenu = !collapseNavMenu;
+            collapseNavMenu = true;
         }  
         else
         {

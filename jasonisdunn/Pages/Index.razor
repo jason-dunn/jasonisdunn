@@ -1,5 +1,16 @@
 ﻿@page "/"
 
+@using jasonisdunn.Data
+@inject MainLayoutState AppState
 
+@code{
+    protected override void OnInitialized()
+    {
+        //AppState.FetchData = true;
+        //AppState.SetFetchDataState();
+        AppState.OnChange += StateHasChanged; 
+    }
+	
+}
 
 

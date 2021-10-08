@@ -7,6 +7,9 @@
   <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Shared\Status.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Remove="wwwroot\jasonisdunn.styles.css" />
   </ItemGroup>
   <ItemGroup>

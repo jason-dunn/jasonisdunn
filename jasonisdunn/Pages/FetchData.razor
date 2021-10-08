@@ -2,6 +2,8 @@
 
 @using jasonisdunn.Data
 @inject WeatherForecastService ForecastService
+@inject MainLayoutState AppState
+
 @if (forecasts == null)
 {
     <p><em>Loading...</em></p>
@@ -31,12 +33,23 @@ else
         </tbody>
     </table>
 }
-
 @code {
     private WeatherForecast[]? forecasts;
+    [Parameter]
+    public bool _FetchData { get; set; }
+    private bool boolFetchData;
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+        if (!AppState.FetchData && !boolFetchData)
+        {
+            forecasts = await ForecastService.GetForecastAsync(DateTime.Now,  AppState.FetchData = true );  
+            AppState.OnChange += StateHasChanged; 
+        }
+        else
+        {
+            forecasts = await ForecastService.GetForecastAsync(DateTime.Now, false);
+            AppState.OnChange += StateHasChanged; 
+        }
     }
 }
