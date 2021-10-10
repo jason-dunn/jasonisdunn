@@ -3,6 +3,10 @@
 @using jasonisdunn.Data
 @inject WeatherForecastService ForecastService
 @inject MainLayoutState AppState
+@inject Blazored.LocalStorage.ILocalStorageService localStore
+@inject Blazored.SessionStorage.ISessionStorageService localSession
+
+
 
 @if (forecasts == null)
 {
@@ -40,16 +44,31 @@ else
     private bool boolFetchData;
 
     protected override async Task OnInitializedAsync()
+    {     
+        boolFetchData = await localSession.GetItemAsync<bool>("FetchData");
+        
+        if ( !boolFetchData & !AppState.FetchData )
+            {
+                forecasts = await ForecastService.GetForecastAsync(DateTime.Now, true );
+                AppState.SetFetchDataState(true); 
+                await localSession.SetItemAsync("FetchData", true);
+            }
+            else
+            {
+                forecasts = await ForecastService.GetForecastAsync(DateTime.Now, false);
+                await localSession.SetItemAsync("FetchData", true);      
+            }
+             StateHasChanged();
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (!AppState.FetchData && !boolFetchData)
+        if (firstRender)
         {
-            forecasts = await ForecastService.GetForecastAsync(DateTime.Now,  AppState.FetchData = true );  
-            AppState.OnChange += StateHasChanged; 
+
         }
         else
         {
-            forecasts = await ForecastService.GetForecastAsync(DateTime.Now, false);
-            AppState.OnChange += StateHasChanged; 
+
         }
     }
 }

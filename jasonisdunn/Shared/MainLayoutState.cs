@@ -10,7 +10,7 @@ namespace jasonisdunn.Shared
         private void NotifyStateChanged() => OnChange?.Invoke();
         public void SetFetchDataState(bool valueFetchData)
         {
-            _FetchData = valueFetchData;
+            FetchData = _FetchData = valueFetchData;
         }
     }
 }

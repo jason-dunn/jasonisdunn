@@ -1,6 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @using jasonisdunn.Shared;
-@inject MainLayoutState AppState
+
 @if (!collapseNavMenu)
 {
     <div class="page">  
@@ -104,7 +104,6 @@
             }
             <article class="content px-4">
                 @Body 
-
             </article>
 
         </main>
@@ -218,20 +217,7 @@ else
 @code{
     bool LoggedIn, LoggedOut;
     string UserName;
-    protected async override void OnInitialized()
-    {  
-    }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-        }
-    }
-
-    public void Dispose()
-    {
-    }
     public bool collapseNavMenu { get; set; }
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
@@ -245,7 +231,7 @@ else
         }  
         else
         {
-                collapseNavMenu = false; 
+            collapseNavMenu = false; 
         }  
     }
 }

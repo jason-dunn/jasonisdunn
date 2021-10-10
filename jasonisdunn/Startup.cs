@@ -1,3 +1,5 @@
+using Blazored.LocalStorage;
+using Blazored.SessionStorage;
 using jasonisdunn.Data;
 using jasonisdunn.Shared;
 using Microsoft.AspNetCore.Builder;
@@ -31,6 +33,7 @@ namespace jasonisdunn
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<EmailFormModel>();
             services.AddScoped<MainLayoutState>();
             if (!services.Any(x => x.ServiceType == typeof(HttpClient)))
@@ -43,10 +46,10 @@ namespace jasonisdunn
                         BaseAddress = new Uri(uriHelper.BaseUri)
                     };
                 });
-            }
-
-            services.AddSingleton<WeatherForecastService>();
+            }   
             services.AddMudServices();
+            services.AddBlazoredLocalStorage();
+            services.AddBlazoredSessionStorage();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

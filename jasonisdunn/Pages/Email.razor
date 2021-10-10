@@ -12,12 +12,31 @@
 @inject IJSRuntime JSRuntime
 @inject HttpClient Http
 @inject NavigationManager NavigationManager
-
-
+ <MudAppBar Fixed="true" Color="Color.Transparent" Style="left:-100px;" Bottom="true" Elevation="0" > 
 <div class="emailcontent">
+              <table class="tableemailcontinue">
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="bg-primary text-light rounded @sentVisibility">
+                            <i class=""></i> Successfully sent your email message.<br />Thanks for the feedback!<br />
+                        </div>
+                    </td>
+                </tr>
+                <tr><br /></tr>
+                <tr>
+                    <td>
+                        <button id="continueBtn" class="btn btn-primary @sentVisibility"
+                                type="submit" onclick="window.history.back()">
+                            <i class="fa fa-hand-point-right" style="margin-left:14px"></i> Continue
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     <div class="email">
         <div class="form @formVisibility" id="form" tabindex="0">
-            <EditForm style="color:#448AFF" Model="@_EmailFormModel" OnValidSubmit="OnSubmit">
+            <EditForm style="color:#448AFF; margin: auto" Model="@_EmailFormModel" OnValidSubmit="OnSubmit">
                 <DataAnnotationsValidator />
                 <table class="tableemail" >
                     <tbody>
@@ -89,28 +108,10 @@
             <br />
             <br />
         </div>
-        <table class="tableemailcontinue">
-            <tbody>
-                <tr>
-                    <td>
-                        <div class="bg-primary text-light rounded @sentVisibility">
-                            <i class=""></i> Successfully sent your email message.<br />Thanks for the feedback!<br />
-                        </div>
-                    </td>
-                </tr>
-                <tr><br /></tr>
-                <tr>
-                    <td>
-                        <button id="continueBtn" class="btn btn-primary @sentVisibility"
-                                type="submit" onclick="window.history.back()">
-                            <i class="fa fa-hand-point-right" style="margin-left:14px"></i> Continue
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+
     </div>
 </div>
+</MudAppBar>
 @code {
     private EmailFormModel _EmailFormModel = new EmailFormModel();
     private string formVisibility = "d-block";

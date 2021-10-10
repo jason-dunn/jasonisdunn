@@ -2,18 +2,16 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace jasonisdunn.Data
 {
     public class WeatherForecastService
     {
-
         WeatherForecast[] weatherForecast = new WeatherForecast[10];
         private int intTemp, intSummary;
 
         private static readonly string[] Summaries = new[]
-        {
-        "Bracing","Freezing", "Frosty",  "Cold", "Warm", "Hot", "Sweltering", "Scorching"
-    };
+        {"Bracing","Freezing", "Frosty",  "Cold", "Warm", "Hot", "Sweltering", "Scorching"};
 
         public Task<WeatherForecast[]> GetForecastAsync(DateTime startDate, bool _bool)
         {
@@ -31,10 +29,11 @@ namespace jasonisdunn.Data
                 }
                 return Task.FromResult(Enumerable.Range(1, 10).Select(index => new WeatherForecast
                 {
-                    Date = weatherForecast[index-1].Date = startDate.AddDays(index),
-                    TemperatureC = weatherForecast[index-1].TemperatureC = newtemp(),
-                    Summary = weatherForecast[index-1].Summary =Summaries[intSummary]
+                    Date = weatherForecast[index - 1].Date = startDate.AddDays(index),
+                    TemperatureC = weatherForecast[index - 1].TemperatureC = newtemp(),
+                    Summary = weatherForecast[index - 1].Summary = Summaries[intSummary]
                 }).ToArray());
+                  
             }
             else
             {
