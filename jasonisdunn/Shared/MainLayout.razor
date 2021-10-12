@@ -1,14 +1,15 @@
 ﻿@inherits LayoutComponentBase
 @using jasonisdunn.Shared;
+@inject MainLayoutState AppState
 
-@if (!collapseNavMenu)
+@if (!pp_CollapseNavMenu)
 {
     <div class="page">  
     <div class="sidebar">
         <NavMenu />
     </div>
     <div class="my-toggle-off">
-    <MudToggleIconButton Toggled="@collapseNavMenu" ToggledChanged="ToggleNavMenu"
+    <MudToggleIconButton Toggled="@pp_CollapseNavMenu" ToggledChanged="ToggleNavMenu"
     Icon="@Icons.Material.Filled.Menu" Color="@Color.Dark" Title="Menu Toggle Off"
     ToggledIcon="@Icons.Material.Filled.Menu" ToggledColor="@Color.Dark" ToggledTitle="Menu Toggle On"
     Style="width:30px; left:3px; top:45vh"/>
@@ -17,22 +18,21 @@
             @if (!LoggedIn)
             {
                 <div>   
-                    <MudAppBar Color="Color.Transparent" Fixed="true" Elevation="0">
+                        <MudAppBar Color="Color.Transparent" Fixed="true" Elevation="0">
                         <MudAppBarSpacer />
                         <MudTooltip Text="Register">
-                            <MudIconButton Icon="@Icons.Material.Rounded.Assignment" Variant="Variant.Filled"Color="Color.Info" Size="Size.Small"  Link="/"
-           Target="_blank"  Style="margin:10px;" ></MudIconButton> 
+                        <MudIconButton Icon="@Icons.Material.Rounded.Assignment" Variant="Variant.Filled"Color="Color.Info" Size="Size.Small"  Link="/"Target="_blank"  Style="margin:10px;" ></MudIconButton> 
                         </MudTooltip>
                         <MudTooltip Text="Login">
-                            <MudIconButton Icon="@Icons.Material.Rounded.Login" Variant="Variant.Filled"  Color="Color.Info" Size="Size.Small" Link="/"
-           Target="_blank"></MudIconButton>
+                        <MudIconButton Icon="@Icons.Material.Rounded.Login" Variant="Variant.Filled"  Color="Color.Info" Size="Size.Small" Link="/"Target="_blank"></MudIconButton>
                         </MudTooltip>
-                    </MudAppBar> 
-                           <MudAppBar Fixed="true" Bottom="true" Elevation="0" Style="@($"color:{Colors.Blue.Accent2}; background:{Colors.Blue.Accent2};")">
-                    <MudAppBarSpacer /> 
-                         <MudIconButton Icon="@Icons.Material.Filled.ContactMail" Variant="Variant.Filled"  Color="Color.Info" Size="Size.Small"Link="/email"></MudIconButton> 
-           <MudAppBarSpacer /> 
-                     </MudAppBar>  
+                        </MudAppBar> 
+                        <MudAppBar Fixed="true" Bottom="true" Elevation="0" Style="@($"color:{Colors.Blue.Accent2}; background:{Colors.Blue.Accent2};")">
+                        <MudElement Style="width:166px;  text-align:right"><code style = "color:white" >@_AssemblyVersion</code></MudElement>
+                        <MudAppBarSpacer /> 
+                        <MudIconButton Icon="@Icons.Material.Filled.ContactMail" Variant="Variant.Filled"  Color="Color.Info" Size="Size.Small"Link="/email"></MudIconButton> 
+                        <MudAppBarSpacer /> 
+                        </MudAppBar>  
                     <table class="hiddentable">
                         <tr><td></td>
                             <td><table class="maintable" >
@@ -114,7 +114,7 @@ else
 {
     <div class="page">    
                 <div class="my-toggle-on">
-                <MudToggleIconButton Toggled="@collapseNavMenu" ToggledChanged="ToggleNavMenu"
+                <MudToggleIconButton Toggled="@pp_CollapseNavMenu" ToggledChanged="ToggleNavMenu"
                 Icon="@Icons.Material.Filled.Menu" Color="@Color.Dark" Title="Men Toggle Off"
                 ToggledIcon="@Icons.Material.Filled.Menu" ToggledColor="@Color.Dark" ToggledTitle="Menu Toggle On"
                 Style="width:30px; left:0px; top:45vh"/>
@@ -124,21 +124,20 @@ else
             {
                 <div>   
                     <MudAppBar Color="Color.Transparent" Fixed="true" Elevation="0">
-                        <MudAppBarSpacer />
-                        <MudTooltip Text="Register">
-                            <MudIconButton Icon="@Icons.Material.Rounded.Assignment" Variant="Variant.Filled"Color="Color.Info" Size="Size.Small" Link="/"
-           Target="_blank" Style="margin:10px;" ></MudIconButton> 
-                        </MudTooltip>
-                        <MudTooltip Text="Login">
-                            <MudIconButton Icon="@Icons.Material.Rounded.Login" Variant="Variant.Filled"  Color="Color.Info" Size="Size.Small" Link="/"
-           Target="_blank"></MudIconButton>
-                        </MudTooltip>
+                    <MudAppBarSpacer />
+                    <MudTooltip Text="Register">
+                    <MudIconButton Icon="@Icons.Material.Rounded.Assignment" Variant="Variant.Filled"Color="Color.Info" Size="Size.Small" Link="/"Target="_blank" Style="margin:10px;" ></MudIconButton> 
+                    </MudTooltip>
+                    <MudTooltip Text="Login">
+                    <MudIconButton Icon="@Icons.Material.Rounded.Login" Variant="Variant.Filled"  Color="Color.Info" Size="Size.Small" Link="/"Target="_blank"></MudIconButton>
+                    </MudTooltip>
                     </MudAppBar>  
-                     <MudAppBar Fixed="true" Bottom="true" Elevation="0" Style="@($"color:{Colors.Blue.Accent2}; background:{Colors.Blue.Accent2};")">
+                    <MudAppBar Fixed="true" Bottom="true" Elevation="0" Style="@($"color:{Colors.Blue.Accent2}; background:{Colors.Blue.Accent2};")">
+                    <MudElement Style="width:166px;  text-align:right"><code style = "color:white" >@_AssemblyVersion </code></MudElement>
                     <MudAppBarSpacer /> 
-                         <MudIconButton Icon="@Icons.Material.Filled.ContactMail" Variant="Variant.Filled"  Color="Color.Info" Size="Size.Small" Link="/email"></MudIconButton>  
-           <MudAppBarSpacer /> 
-                     </MudAppBar>  
+                    <MudIconButton Icon="@Icons.Material.Filled.ContactMail" Variant="Variant.Filled"  Color="Color.Info" Size="Size.Small" Link="/email"></MudIconButton>  
+                    <MudAppBarSpacer /> 
+                    </MudAppBar>  
                     <table class="hiddentable">
                         <tr><td></td>
                             <td><table class="maintable" >
@@ -218,20 +217,27 @@ else
     bool LoggedIn, LoggedOut;
     string UserName;
 
-    public bool collapseNavMenu { get; set; }
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    public bool pp_CollapseNavMenu { get; set; }
+    public string pp_AssemblyVersion { get; set; } 
+    private string _CollapseNavMenu => pp_CollapseNavMenu ? "collapse" : null;
+    private string _AssemblyVersion;
+    
+    protected override void OnInitialized()
+    {
+        _AssemblyVersion=AppState.GetAssemblyVersion();
+    }
 
     private void ToggleNavMenu(bool toggled)
     {
-        collapseNavMenu = toggled;
-        if (collapseNavMenu)
+        pp_CollapseNavMenu = toggled;
+        if (pp_CollapseNavMenu)
         {
-            collapseNavMenu = !collapseNavMenu;
-            collapseNavMenu = true;
+            pp_CollapseNavMenu = !pp_CollapseNavMenu;
+            pp_CollapseNavMenu = true;
         }  
         else
         {
-            collapseNavMenu = false; 
+            pp_CollapseNavMenu = false; 
         }  
     }
 }
