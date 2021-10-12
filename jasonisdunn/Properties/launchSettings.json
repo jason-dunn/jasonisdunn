@@ -30,8 +30,7 @@
     },
     "winhost": {
       "commandName": "IIS",
-      "launchUrl": "http://jasonisd.w32.wh-2.com",
-      "ancmHostingModel": "OutOfProcess"
+      "launchUrl": "http://jasonisd.w32.wh-2.com"
     }
   }
 }
