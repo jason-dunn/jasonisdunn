@@ -11,7 +11,8 @@ i {
 
 .navbar-brand {
     font-size: 1.1rem;
-    color: #448AFF;
+    margin-left: .3rem;
+    margin-right: .3rem;
 }
 
 .oi {

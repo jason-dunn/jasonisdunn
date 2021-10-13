@@ -5,9 +5,11 @@ using jasonisdunn.Shared;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using MudBlazor.Services;
 using System;
@@ -34,8 +36,16 @@ namespace jasonisdunn
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            services.AddSingleton<AssemblyVersionService>();
             services.AddSingleton<EmailFormModel>();
             services.AddScoped<MainLayoutState>();
+            services.AddSingleton<PageHistoryState>();
+
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(sp => sp.GetRequiredService<HttpContext>().Request);
+            services.AddScoped(sp => sp.GetRequiredService<HttpContext>().Response);
+            services.AddScoped(sp => sp.GetRequiredService<IHttpContextAccessor>().HttpContext);
+
             if (!services.Any(x => x.ServiceType == typeof(HttpClient)))
             {
                 services.AddScoped<HttpClient>(s =>

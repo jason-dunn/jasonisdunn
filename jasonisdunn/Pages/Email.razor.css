@@ -1,81 +1,79 @@
-.email {
-    height: 70vh;
-    margin-top: .5rem;
-    margin-bottom: 3rem;
-    overflow-x: hidden;
-}
-
 .emailcontent {
     position: relative;
     overflow-y: scroll;
-    overflow-x: hidden;
-    margin-top: 25px;
+    overflow-x: scroll;
+}
+
+.email {
+    margin-left: 50vw;
+    margin-right: 50vw;
+    margin-bottom: 100vh;
+}
+
+.form {
 }
 
 .tableemail {
-
 }
-    .tableemail tr {
-        width: 1%;
 
-    }
+.tableemail tr {
+    width: 1%;
+}
 
-    .tableemail td {
-        width: 1%;
-    }
+.tableemail td {
+    width: 1%;
+}
 
-.tableemailcontent {
+.tableemailcontent  {
+}
 
+.tableemailcontent tr {
     margin-top: 1%;
     margin-bottom: 1%;
 }
 
-    .tableemailcontent tr {
-        margin-top: 1%;
-        margin-bottom: 1%;
-    }
+.tableemailcontent td {
+    text-align: left;
+    min-width: 240px;
+    width: 200px;
+    height: 1.1rem;
+    /* font-size for the whole form*/
+    /* -----------------------------*/
+    font-size: 1rem;
+    /* -----------------------------*/
+}
 
-    .tableemailcontent td {
-        text-align: left;
-        min-width: 240px;
-        width: 200px;
-        height: 1.1rem;
+.tableemailcontent label {
+    text-align: left;
+    width: 200px;
+}
 
-        /* font-size for the whole form*/
-        /* -----------------------------*/
-        font-size: 1rem;
-        /* -----------------------------*/
-    }
+.tableemailcontent input {
+    text-align: left;
+}
 
-    .tableemailcontent label {
-        text-align: left;
-        width: 200px;
-    }
-
-    .tableemailcontent input {
-        text-align: left;
-    }
-
-    .tableemailcontent textarea {
-        text-align: left;
-    }
+.tableemailcontent textarea {
+    text-align: left;
+}
 
 .tableemailsubmit {
     margin: 0 auto;
     text-align: center;
 }
 
-    .tableemailsubmit th {
-        margin-top: 100%;
-        margin-bottom: 1%;
-    }
+.tableemailsubmit th {
+    margin-top: 100%;
+    margin-bottom: 1%;
+}
 
-    .tableemailsubmit td {
-        font-size: .8rem;
-    }
+.tableemailsubmit td {
+    font-size: .8rem;
+}
+
 .btn-primary:not(:disabled):not(.disabled) {
     background: #448AFF;
 }
+
 input[type=button], input[type=submit], input[type=reset] {
     background-color: #1861ac;
     color: white;
@@ -107,36 +105,32 @@ button {
     -moz-appearance: none;
 }
 
-    button:hover,
-    button:focus {
-        color: #fff;
-        background-color: #0069d9;
-        border-color: #0062cc
-    }
-
-    button:focus {
-        box-shadow: 0 0 0 .1rem rgba(38,143,255,.5);
-        outline: 1px solid #fff;
-    }
-
-    button:active {
-        transform: scale(0.99);
-    }
-
-.tableemailcontinue {
-    margin-top: 10%;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    font-size: .8rem;
+button:hover,
+button:focus {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc
 }
 
-    .tableemailcontinue th {
-        margin-top: 5%;
-        margin-bottom: 5%;
-    }
+button:focus {
+    box-shadow: 0 0 0 .1rem rgba(38,143,255,.5);
+    outline: 1px solid #fff;
+}
 
-    .tableemailcontinue td {
-        font-size: 1rem;
-    }
+button:active {
+    transform: scale(0.99);
+}
 
+.tableemailcontinue {
+    margin-left: 50vw;
+    margin-right: 50vw;
+}
+
+.tableemailcontinue th {
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.tableemailcontinue td {
+    font-size: 1rem;
+}

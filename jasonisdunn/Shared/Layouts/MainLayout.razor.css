@@ -1,0 +1,129 @@
+.page {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+
+.main {
+    flex: 1;
+}
+
+.sidebar {
+    background-color: #448AFF;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+}
+
+.my-toggle-off {
+    background-color: #FFFFFF;
+    height: 93vh;
+    width: 50px;
+    position: sticky;
+    top: 0;
+}
+
+.my-toggle-on {
+    background-color: #FFFFFF;
+    height: 93vh;
+    width: 50px;
+    position: sticky;
+    top: 0;
+}
+
+.navbar {
+    background-color: #448AFF;
+}
+
+.navbar-toggler {
+    width: 47px;
+    height: 38px;
+    background-color: #7eb444;
+    border: solid;
+    border-color: white;
+}
+
+    .navbar-toggler .line {
+        width: 150%;
+        float: left;
+        height: 2px;
+        background-color: #fff;
+        margin-bottom: 5px;
+    }
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 48 42' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.top-row {
+    background-color: #000000;
+    border-bottom: 1px solid #000000;
+    justify-content: flex-end;
+    max-height: 0px;
+    display: flex;
+    align-items: center;
+}
+
+    .top-row a, .top-row .btn-link {
+        white-space: nowrap;
+        margin-left: 1.5rem;
+    }
+
+.top-row a:first-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.hiddentable {
+    table-layout: fixed;
+    max-width: 100%;
+    min-width: 100%;
+}
+
+    .hiddentable tr {
+        border: none;
+    }
+
+    .hiddentable td {
+        table-layout: fixed;
+        line-height: 1px;
+        white-space: pre-line;
+        width: 100vw;
+        border: none;
+    }
+
+.maintable {
+    table-layout: fixed;
+    float: right;
+}
+
+    .maintable tr {
+        border: none;
+    }
+
+    .maintable td {
+        border: none;
+        max-width: 115px;
+        min-width: 115px;
+        line-height: 1px;
+        white-space: pre-line;
+        margin: 100px;
+    }
+
+.alttable {
+    table-layout: fixed;
+    float: right;
+}
+
+    .alttable tr {
+        border: none;
+    }
+
+    .alttable td {
+        border: none;
+        max-width: 400px;
+        min-width: 115px;
+        line-height: 1px;
+        white-space: pre-line;
+        margin: 100px;
+    }

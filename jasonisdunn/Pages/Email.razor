@@ -1,17 +1,20 @@
 ﻿@page  "/email"
-@layout EmailLayout
+@layout Shared.Layouts.EmailLayout
 
-@using System.Net.Http;
 @using Newtonsoft.Json.Linq;
 @using Microsoft.AspNetCore.Components.Forms;
 @using Microsoft.JSInterop;
 @using System.Net;
 @using System.Net.Mail;
 @using jasonisdunn.Data;
-@using jasonisdunn.Shared
+@using jasonisdunn.Shared;
+
+
 @inject IJSRuntime JSRuntime
-@inject HttpClient Http
 @inject NavigationManager NavigationManager
+@inject PageHistoryState PageHistoryState
+
+
  <MudAppBar Fixed="true" Color="Color.Transparent" Style="left:-100px;" Bottom="true" Elevation="0" > 
 <div class="emailcontent">
               <table class="tableemailcontinue">
@@ -45,7 +48,7 @@
                                 <table class="tableemailcontent">
                                     <tbody>
                                         <tr>
-                                            <td>
+                                            <td>                    
                                                 <label for="Name">Name</label>
                                                 <InputText id="Name" @bind-Value="_EmailFormModel.Name" />
                                                 <ValidationMessage For="@(() => _EmailFormModel.Name)" />
@@ -92,6 +95,7 @@
                                                                     type="button" @onclick="OnCancel">
                                                                 <i class="far fa-window-close"> </i>   Cancel
                                                             </button>
+                                                             
                                                         </div>
                                                     </div>
                                                 </div>
@@ -120,15 +124,13 @@
     private string sendVisibility = "d-none";
     private string sentVisibility = "d-none";
 
-
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override void OnInitialized()
     {
-        if (firstRender)
-        {
-        }        StateHasChanged();
-        await Task.Delay(0);
+        NavigationManager.LocationChanged += HandleLocationChanged; 
+        PageHistoryState.AddPageToHistory("email");
     }
+
+
 
     private async Task OnSubmit()
     {
@@ -182,12 +184,32 @@
             "<b>From</b>: {0}<br/><b>Email</b>: {1}<br/>", name, email);
         return senderInfo + message;
     }
-      private async Task OnCancel()
+
+    private void OnCancel()
     {
-         NavigationManager.NavigateTo("");
-         await Task.Delay(0);
+        @if (PageHistoryState.CanGoBack())
+        {
+             NavigationManager.NavigateTo(PageHistoryState.GetGoBackPage());
+             PageHistoryState.ClearPageToHistory();
+        }
+        else
+        {
+            NavigationManager.NavigateTo("https://jasonisdunn.tech");
+        }
+            this.Dispose();
+    }
+
+    private void HandleLocationChanged(object sender, LocationChangedEventArgs e)
+    {
+    
+    }
+
+    public void Dispose()
+    {
+        NavigationManager.LocationChanged -= HandleLocationChanged;
     }
 }
+
 
 
 

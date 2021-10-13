@@ -1,6 +1,12 @@
 ﻿@page "/"
+@layout Shared.Layouts.MainLayout
+@inject PageHistoryState PageHistoryState
 @code{
-
+	protected override void OnInitialized()
+    {
+		PageHistoryState.AddPageToHistory("");
+		base.OnInitialized();
+	}
 }
 
 

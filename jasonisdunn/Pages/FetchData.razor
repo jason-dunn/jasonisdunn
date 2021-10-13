@@ -1,8 +1,10 @@
 ﻿@page "/fetchdata"
-
+@layout Shared.Layouts.MainLayout
 @using jasonisdunn.Data
-@inject WeatherForecastService ForecastService
+@inject WeatherForecastService WeatherForecastService
 @inject MainLayoutState AppState
+@inject NavigationManager NavigationManager
+@inject PageHistoryState PageHistoryState
 @inject Blazored.LocalStorage.ILocalStorageService localStore
 @inject Blazored.SessionStorage.ISessionStorageService localSession
 
@@ -45,20 +47,23 @@ else
 
     protected override async Task OnInitializedAsync()
     {     
+
         boolFetchData = await localSession.GetItemAsync<bool>("FetchData");
         
-        if ( !boolFetchData & !AppState.FetchData )
+        if ( !boolFetchData & !AppState.ppFetchData )
             {
-                forecasts = await ForecastService.GetForecastAsync(DateTime.Now, true );
+                forecasts = await WeatherForecastService.GetForecastAsync(DateTime.Now, true );
                 AppState.SetFetchDataState(true); 
                 await localSession.SetItemAsync("FetchData", true);
             }
             else
             {
-                forecasts = await ForecastService.GetForecastAsync(DateTime.Now, false);
+                forecasts = await WeatherForecastService.GetForecastAsync(DateTime.Now, false);
                 await localSession.SetItemAsync("FetchData", true);      
             }
              StateHasChanged();
+        PageHistoryState.AddPageToHistory("fetchdata");
+		base.OnInitialized();
     }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
