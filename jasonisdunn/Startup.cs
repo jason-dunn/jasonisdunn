@@ -36,9 +36,10 @@ namespace jasonisdunn
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            services.AddSingleton<IncrementService>();
             services.AddSingleton<AssemblyVersionService>();
             services.AddSingleton<EmailFormModel>();
-            services.AddScoped<MainLayoutState>();
+            services.AddScoped<MainState>();
             services.AddSingleton<PageHistoryState>();
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();

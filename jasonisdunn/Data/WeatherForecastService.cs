@@ -7,7 +7,8 @@ namespace jasonisdunn.Data
 {
     public class WeatherForecastService
     {
-        WeatherForecast[] weatherForecast = new WeatherForecast[10];
+        const int day = 14;
+        WeatherForecast[] weatherForecast = new WeatherForecast[day];
         private int intTemp, intSummary;
 
         private static readonly string[] Summaries = new[]
@@ -27,7 +28,7 @@ namespace jasonisdunn.Data
                     item.TemperatureC = 0;
                     item.Summary = Summaries[0];
                 }
-                return Task.FromResult(Enumerable.Range(1, 10).Select(index => new WeatherForecast
+                return Task.FromResult(Enumerable.Range(1, day).Select(index => new WeatherForecast
                 {
                     Date = weatherForecast[index - 1].Date = startDate.AddDays(index),
                     TemperatureC = weatherForecast[index - 1].TemperatureC = newtemp(),
@@ -37,7 +38,7 @@ namespace jasonisdunn.Data
             }
             else
             {
-                return Task.FromResult(Enumerable.Range(1, 10).Select(index => new WeatherForecast
+                return Task.FromResult(Enumerable.Range(1, day).Select(index => new WeatherForecast
                 {
                     Date = weatherForecast[index-1].Date,
                     TemperatureC = weatherForecast[index-1].TemperatureC,

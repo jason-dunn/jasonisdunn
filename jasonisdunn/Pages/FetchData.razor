@@ -2,7 +2,7 @@
 @layout Shared.Layouts.MainLayout
 @using jasonisdunn.Data
 @inject WeatherForecastService WeatherForecastService
-@inject MainLayoutState AppState
+@inject MainState AppState
 @inject NavigationManager NavigationManager
 @inject PageHistoryState PageHistoryState
 @inject Blazored.LocalStorage.ILocalStorageService localStore
@@ -12,10 +12,11 @@
 
 @if (forecasts == null)
 {
-    <p><em>Loading...</em></p>
+    <p><em>Loading...-14 day weather forcast...-</em></p>
 }
 else
 {
+    <p>14 day weather forcast...</p>
     <br />
     <table class="table">
         <thead>
@@ -50,7 +51,7 @@ else
 
         boolFetchData = await localSession.GetItemAsync<bool>("FetchData");
         
-        if ( !boolFetchData & !AppState.ppFetchData )
+        if ( !boolFetchData & !AppState.ppboolFetchData )
             {
                 forecasts = await WeatherForecastService.GetForecastAsync(DateTime.Now, true );
                 AppState.SetFetchDataState(true); 
@@ -65,15 +66,15 @@ else
         PageHistoryState.AddPageToHistory("fetchdata");
 		base.OnInitialized();
     }
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
+    //protected override async Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    if (firstRender)
+    //    {
 
-        }
-        else
-        {
+    //    }
+    //    else
+    //    {
 
-        }
-    }
+    //    }
+    //}
 }

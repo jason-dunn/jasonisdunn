@@ -3,20 +3,28 @@ using jasonisdunn.Data;
 
 namespace jasonisdunn.Shared
 {
-    public class MainLayoutState
+    public class MainState
     {
         private AssemblyVersion AssemblyVersion = new AssemblyVersion();
+        private Increment Increment = new Increment();
+
         public bool ppboolAssemblyVersion { get; set; }
-        public bool ppFetchData { get; set; }
+        public bool ppboolFetchData { get; set; }
+        public bool ppboolCounter { get; set; }
 
         public string ppAssemblyVersion { get; set; }
         public string ppstrAssemblyVersion { get; set; }
 
+        public int ppintCounter { get; set;}
+
         private bool _boolAssemblyVersion;
+        private bool _boolFetchData;
+        private bool _boolCounter;
+
         private string _AssemblyVersion;
         private string _strAssemblyVersion;
 
-        private bool _boolFetchData;
+       
 
         //private AssemblyVersion AssemblyVersion = new AssemblyVersion();
 
@@ -34,7 +42,12 @@ namespace jasonisdunn.Shared
 
         public void SetFetchDataState(bool valueFetchData)
         {
-            ppFetchData = _boolFetchData = valueFetchData;
+            ppboolFetchData = _boolFetchData = valueFetchData;
+        }
+
+        public void SetCounterState(bool valueCounter)
+        {
+            ppboolCounter = _boolCounter = valueCounter;
         }
     }
 }
