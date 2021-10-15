@@ -7,7 +7,7 @@ namespace jasonisdunn.Data
 {
     public class WeatherForecastService
     {
-        const int day = 14;
+        const int day = 44;
         WeatherForecast[] weatherForecast = new WeatherForecast[day];
         private int intTemp, intSummary;
 
