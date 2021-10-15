@@ -1,3 +1,6 @@
+i {
+    width: 28px;
+}
 .emailcontent {
     position: relative;
     overflow-y: scroll;
@@ -96,7 +99,7 @@ button {
     background-color: #1861ac;
     border: 1px solid #d7d7d7;
     border-radius: .3rem;
-    font-size: .8rem;
+    font-size: 1rem;
     cursor: pointer;
     text-align: center;
     width: 200px;
