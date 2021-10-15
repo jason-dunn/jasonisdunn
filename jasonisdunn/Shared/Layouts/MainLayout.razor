@@ -7,256 +7,280 @@
 
 @if (!pp_CollapseNavMenu)
 {
-    <div class="page">  
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-                        <div class="my-toggle-off">
-                        <MudToggleIconButton Toggled="@pp_CollapseNavMenu" ToggledChanged="ToggleNavMenu"
-                        Icon="@Icons.Material.Filled.Menu" Color="@Color.Dark" Title="Menu Toggle Off" 
-                        ToggledIcon="@Icons.Material.Filled.Menu" ToggledColor="@Color.Dark" ToggledTitle="Menu Toggle On"
-                        Style="width:30px; left:3px; top:45vh" >
-                        <MudAppBar Elevation="0" Fixed="true" Bottom="true" Style="@($"color:{Colors.Blue.Accent2}; background:{Colors.Blue.Accent2};")">
-                        <MudElement Style="width:166px;  text-align:right" ><code style = "color:white" >@_AssemblyVersion</code></MudElement>
-                        <MudElement Style="width:118px; line-height:10px; text-align:left;"><code style = "color:white" >&copy;2021 jasonisdunn</code></MudElement>
-                        <MudElement Style="width:66px; line-height:10px; text-align:center"><code style = "color:white" >Contact Support </code></MudElement>
-                        <MudIconButton Icon="@Icons.Material.Filled.ContactMail" Variant="Variant.Filled"  Color="Color.Info" Size="Size.Small"Link="/email"></MudIconButton> 
-                        </MudAppBar> 
-                        </MudToggleIconButton>
-                        </div>
-                        <MudAppBar Elevation="0" Fixed="true" Bottom="true" Style="@($"color:{Colors.Blue.Accent2}; background:{Colors.Blue.Accent2};")">
-                        <MudElement Style="width:104px;  text-align:left"><code style = "color:white" >@_AssemblyVersion</code></MudElement>
-                        <MudAppBarSpacer />
-                        <MudElement Style="width:118px; line-height:10px; text-align:left;"><code style = "color:white" >&copy;2021 jasonisdunn</code></MudElement>
-                         <MudAppBarSpacer />
-                        <MudElement Style="width:66px; line-height:10px; text-align:center"><code style = "color:white" >Contact Support </code></MudElement>
-                        <MudIconButton Icon="@Icons.Material.Filled.ContactMail" Variant="Variant.Filled"  Color="Color.Info" Size="Size.Small" Link="email" OnClick="@NavigateToEmail"></MudIconButton> 
-                        </MudAppBar> 
-        <main>
-            @if (!LoggedIn)
-            {
-                <div>   
-                        <MudAppBar Elevation="0" Fixed="true" Color="Color.Transparent" >
-                        <MudAppBarSpacer />
-                        <MudTooltip Text="Register">
-                        <MudIconButton Icon="@Icons.Material.Rounded.Assignment" Variant="Variant.Filled"Color="Color.Info" Size="Size.Small"  Link="/register"  Style="margin:10px;" ></MudIconButton> 
-                        </MudTooltip>
-                        <MudTooltip Text="Login">
-                        <MudIconButton Icon="@Icons.Material.Rounded.Login" Variant="Variant.Filled"  Color="Color.Info" Size="Size.Small" Link="/login"></MudIconButton>
-                        </MudTooltip>
-                        </MudAppBar> 
-                    <table class="hiddentable">
-                        <tr><td></td>
-                            <td><table class="maintable" >
-                                    <tr style="height:3px">
-                                        <td colspan="10"></td>
-                                        <td colspan="1">
-                                            <i class="" aria-hidden="true">   </i>
-                                        </td>
-                                        <td colspan="1">
-                                            <i class="" aria-hidden="true">   </i>
-                                        </td>
-                                    </tr>
-                                    <tr style="height:8px">
-                                        <td colspan="10"></td>
-                                        <td colspan="1" style=" text-align:center">
+	<div class="page">
+		<div class="sidebar">
+			<NavMenu />
+		</div>
+				<div class="my-toggle-off">
+				<MudAppBar Elevation="0" Fixed="false" Color="Color.Transparent" Style="float:right; height:40vh"/>
+				<MudTooltip Text="Menu Toggle Off" Placement="Placement.Right">
+					<MudToggleIconButton Toggled="@pp_CollapseNavMenu" ToggledChanged="ToggleNavMenu"
+									 Icon="@Icons.Material.Filled.Menu" Color="@Color.Dark"
+									 ToggledIcon="@Icons.Material.Filled.Menu" ToggledColor="@Color.Dark"
+									 Style="width:30px; top:-12px; left:3px" />
+				</MudTooltip>
+			</div>
+		@*			<MudAppBar Elevation="0" Fixed="true" Bottom="true" Style="@($"color:{Colors.Blue.Accent2}; background:{Colors.Blue.Accent2};")">
+			<MudElement Style="width:166px;  text-align:right"><code style="color:white">@_AssemblyVersion</code></MudElement>
+			<MudElement Style="width:118px; line-height:10px; text-align:left;"><code style="color:white">&copy;2021 jasonisdunn</code></MudElement>
+			<MudElement Style="width:66px; line-height:10px; text-align:center"><code style="color:white">Contact Support </code></MudElement>
+			<MudIconButton Icon="@Icons.Material.Filled.ContactMail" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small"  Link="/email"></MudIconButton>
+			</MudAppBar>*@
 
-                                            <i  aria-hidden="true">   </i>
-                                        </td>
-                                        <td colspan="1" style=" text-align:center">
 
-                                            <i  aria-hidden="true">   </i>
-                                        </td>
-                                    </tr>
-                                    <tr style="height:10px">
-                                        <td colspan="10"></td>
-                                        <td colspan="1" style=" text-align:left"></td>
-                                        <td colspan="1" style=" text-align:left"></td>
-                                    </tr>
-                                </table>  
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            }
-            else
-            {
-                <div>
-                    <table class="hiddentable">
-                        <tr><td></td>
-                            <td><table class="alttable" >
-                                    <tr style="height:3px">
-                                        <td colspan="10"></td>
-                                        <td colspan="1">
-                                            <i class="" aria-hidden="true">   </i>
-                                        </td>
-                                        <td colspan="1">
-                                            <i class="" aria-hidden="true">   </i>
-                                        </td>
-                                    </tr>
-                                    <tr style="height:5px">
-                                        <td colspan="10"></td>
-                                        <td colspan="1" style=" text-align:center">
-                                            <i class="fa fa-smile-o" aria-hidden="true"></i>
-                                        </td>
-                                        <td colspan="1" style="text-align:center">
-                                            <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
-                                        </td>
-                                    </tr>
-                                    <tr style="height:10px">
-                                        <td colspan="10"></td>
-                                        <td colspan="1">Hello, @UserName!</td>
-                                        <td colspan="1" style=" text-align:center"><NavLink href="" class="nav-item nav-link">Logout</NavLink></td>
-                                    </tr>
-                                </table>  
-                            </td>
-                        </tr>
-                    </table>  
-                </div>
-            }
-            <article class="content px-4">
-                @Body 
-            </article>
-        </main>
-        
-    </div>
+		<MudAppBar Elevation="0" Fixed="true" Bottom="true" Style="@($"color:{Colors.Blue.Accent2}; background:{Colors.Blue.Accent2};")">
+			<MudElement Style="width:104px;  text-align:left"><code style="color:white">@_AssemblyVersion</code></MudElement>
+			<MudAppBarSpacer />
+			<MudElement Style="width:118px; line-height:10px; text-align:left;"><code style="color:white">&copy;2021 jasonisdunn</code></MudElement>
+			<MudAppBarSpacer />
+			<MudElement Style="width:66px; line-height:10px; text-align:center"><code style="color:white">Contact Support </code></MudElement>
+			<MudIconButton Icon="@Icons.Material.Filled.ContactMail" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Link="email" OnClick="@NavigateToEmail"></MudIconButton>
+		</MudAppBar>
+
+
+		<main>
+			@if (!LoggedIn)
+			{
+				<div>
+					<MudAppBar Elevation="0" Fixed="true" Color="Color.Transparent">
+						<MudAppBarSpacer />
+						<MudTooltip Text="Register" Style="padding-top:30px" Placement="Placement.Bottom">
+							<MudIconButton Icon="@Icons.Material.Rounded.Assignment" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Link="/register" Style="margin:10px"></MudIconButton>
+						</MudTooltip>
+						<MudTooltip Text="Login" Style="padding-top:30px" Placement="Placement.Bottom">
+							<MudIconButton Icon="@Icons.Material.Rounded.Login" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Link="/login" Style="margin:10px"></MudIconButton>
+						</MudTooltip>
+					</MudAppBar>
+					<table class="hiddentable">
+						<tr>
+
+							<td></td>
+							<td>
+
+								<table class="maintable">
+									<tr style="height:3px">
+										<td colspan="10"></td>
+										<td colspan="1">
+											<i class="" aria-hidden="true">   </i>
+										</td>
+										<td colspan="1">
+											<i class="" aria-hidden="true">   </i>
+										</td>
+									</tr>
+									<tr style="height:8px">
+										<td colspan="10"></td>
+										<td colspan="1" style=" text-align:center">
+
+											<i aria-hidden="true">   </i>
+										</td>
+										<td colspan="1" style=" text-align:center">
+
+											<i aria-hidden="true">   </i>
+										</td>
+									</tr>
+									<tr style="height:10px">
+										<td colspan="10"></td>
+										<td colspan="1" style=" text-align:left"></td>
+										<td colspan="1" style=" text-align:left"></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+			}
+			else
+			{
+				<div>
+					<table class="hiddentable">
+						<tr>
+
+							<td></td>
+							<td>
+
+								<table class="alttable">
+									<tr style="height:3px">
+										<td colspan="10"></td>
+										<td colspan="1">
+											<i class="" aria-hidden="true">   </i>
+										</td>
+										<td colspan="1">
+											<i class="" aria-hidden="true">   </i>
+										</td>
+									</tr>
+									<tr style="height:5px">
+										<td colspan="10"></td>
+										<td colspan="1" style=" text-align:center">
+											<i class="fa fa-smile-o" aria-hidden="true"></i>
+										</td>
+										<td colspan="1" style="text-align:center">
+											<i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+										</td>
+									</tr>
+									<tr style="height:10px">
+										<td colspan="10"></td>
+										<td colspan="1">Hello, @UserName!</td>
+										<td colspan="1" style=" text-align:center"><NavLink href="" class="nav-item nav-link">Logout</NavLink></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+			}
+			<article class="content px-4">
+				@Body
+			</article>
+		</main>
+	</div>
 }
 else
 {
-    <div class="page">    
-                    <div class="my-toggle-on">
-                    <MudToggleIconButton Toggled="@pp_CollapseNavMenu" ToggledChanged="ToggleNavMenu"
-                    Icon="@Icons.Material.Filled.Menu" Color="@Color.Dark" Title="Men Toggle Off"
-                    ToggledIcon="@Icons.Material.Filled.Menu" ToggledColor="@Color.Dark" ToggledTitle="Menu Toggle On"
-                    Style="width:30px; left:0px; top:45vh" />
-                    </div>
-                    <MudAppBar Elevation="0" Fixed="true" Bottom="true" Style="@($"color:{Colors.Blue.Accent2}; background:{Colors.Blue.Accent2};")">
-                    <MudElement Style="width:104px;  text-align:left"><code style = "color:white" >@_AssemblyVersion </code></MudElement>
-                    <MudAppBarSpacer /> 
-                    <MudElement Style="width:118px; line-height:10px; text-align:left;"><code style ="color:white" >&copy;2021 jasonisdunn</code></MudElement>
-                    <MudAppBarSpacer /> 
-                    <MudElement Style="width:66px; line-height:10px; text-align:center"><code style = "color:white" >Contact Support </code></MudElement>
-                    <MudIconButton Icon="@Icons.Material.Filled.ContactMail" Variant="Variant.Filled"  Color="Color.Info" Size="Size.Small" Link="/email"></MudIconButton>  
-                    </MudAppBar>
-        <main>
-            @if (!LoggedIn)
-            {
-                <div>   
-                    <MudAppBar Elevation="0" Fixed="true" Color="Color.Transparent">
-                    <MudAppBarSpacer />
-                    <MudTooltip Text="Register">
-                    <MudIconButton Icon="@Icons.Material.Rounded.Assignment" Variant="Variant.Filled"Color="Color.Info" Size="Size.Small"  Link="/register" Style="margin:10px;" ></MudIconButton> 
-                    </MudTooltip>
-                    <MudTooltip Text="Login">
-                    <MudIconButton Icon="@Icons.Material.Rounded.Login" Variant="Variant.Filled"  Color="Color.Info" Size="Size.Small" Link="/login"></MudIconButton>
-                    </MudTooltip>
-                    </MudAppBar>  
+	<div class="page">
+		<div class="my-toggle-on">
+			<MudAppBar Elevation="0" Fixed="false" Color="Color.Transparent" Style="float:right; height:40vh"/>
+			<MudTooltip Text="Menu Toggle On" Placement="Placement.Right">
+				<MudToggleIconButton Toggled="@pp_CollapseNavMenu" ToggledChanged="ToggleNavMenu"
+								 Icon="@Icons.Material.Filled.Menu" Color="@Color.Dark"
+								 ToggledIcon="@Icons.Material.Filled.Menu" ToggledColor="@Color.Dark"
+								 Style="width:30px; top:-12px" />
+			</MudTooltip>
+		</div>
+		<MudAppBar Elevation="0" Fixed="true" Bottom="true" Style="@($"color:{Colors.Blue.Accent2}; background:{Colors.Blue.Accent2};")">
+			<MudElement Style="width:104px;  text-align:left"><code style="color:white">@_AssemblyVersion </code></MudElement>
+			<MudAppBarSpacer />
+			<MudElement Style="width:118px; line-height:10px; text-align:left;"><code style="color:white">&copy;2021 jasonisdunn</code></MudElement>
+			<MudAppBarSpacer />
+			<MudElement Style="width:66px; line-height:10px; text-align:center"><code style="color:white">Contact Support </code></MudElement>
+			<MudIconButton Icon="@Icons.Material.Filled.ContactMail" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Link="/email"></MudIconButton>
+		</MudAppBar>
+		<main>
+			@if (!LoggedIn)
+			{
+				<div>
+					<MudAppBar Elevation="0" Fixed="true" Color="Color.Transparent">
+						<MudAppBarSpacer />
+						<MudTooltip Text="Register" Style="padding-top:30px" Placement="Placement.Bottom">
+							<MudIconButton Icon="@Icons.Material.Rounded.Assignment" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Link="/register" Style="margin:10px;"></MudIconButton>
+						</MudTooltip>
+						<MudTooltip Text="Login" Style="padding-top:30px" Placement="Placement.Bottom">
+							<MudIconButton Icon="@Icons.Material.Rounded.Login" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Link="/login" Style="margin:10px"></MudIconButton>
+						</MudTooltip>
+					</MudAppBar>
 
-                    <table class="hiddentable">
-                        <tr><td></td>
-                            <td><table class="maintable" >
-                                    <tr style="height:3px">
-                                        <td colspan="10"></td>
-                                        <td colspan="1">
-                                            <i class="" aria-hidden="true">   </i>
-                                        </td>
-                                        <td colspan="1">
-                                            <i class="" aria-hidden="true">   </i>
-                                        </td>
-                                    </tr>
-                                    <tr style="height:8px">
-                                        <td colspan="10"></td>
-                                        <td colspan="1" style=" text-align:center">
+					<table class="hiddentable">
+						<tr>
 
-                                            <i  aria-hidden="true">   </i>
-                                        </td>
-                                        <td colspan="1" style=" text-align:center">
+							<td></td>
+							<td>
 
-                                            <i  aria-hidden="true">   </i>
-                                        </td>
-                                    </tr>
-                                    <tr style="height:10px">
-                                        <td colspan="10"></td>
-                                        <td colspan="1" style=" text-align:left"></td>
-                                        <td colspan="1" style=" text-align:left"></td>
-                                    </tr>
-                                </table>  
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            }
-            else
-            {
-                <div>
-                    <table class="hiddentable">
-                        <tr><td></td>
-                            <td><table class="alttable" >
-                                    <tr style="height:3px">
-                                        <td colspan="10"></td>
-                                        <td colspan="1">
-                                            <i class="" aria-hidden="true">   </i>
-                                        </td>
-                                        <td colspan="1">
-                                            <i class="" aria-hidden="true">   </i>
-                                        </td>
-                                    </tr>
-                                    <tr style="height:5px">
-                                        <td colspan="10"></td>
-                                        <td colspan="1" style=" text-align:center">
-                                            <i class="fa fa-smile-o" aria-hidden="true"></i>
-                                        </td>
-                                        <td colspan="1" style="text-align:center">
-                                            <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
-                                        </td>
-                                    </tr>
-                                    <tr style="height:10px">
-                                        <td colspan="10"></td>
-                                        <td colspan="1">Hello, @UserName!</td>
-                                        <td colspan="1" style=" text-align:center"><NavLink href="" class="nav-item nav-link">Logout</NavLink></td>
-                                    </tr>
-                                </table>  
-                            </td>
-                        </tr>
-                    </table>  
-                </div>
-            }
-            <article class="content px-4">
-                @Body 
-            </article>
-        </main>
-    </div>   
+								<table class="maintable">
+									<tr style="height:3px">
+										<td colspan="10"></td>
+										<td colspan="1">
+											<i class="" aria-hidden="true">   </i>
+										</td>
+										<td colspan="1">
+											<i class="" aria-hidden="true">   </i>
+										</td>
+									</tr>
+									<tr style="height:8px">
+										<td colspan="10"></td>
+										<td colspan="1" style=" text-align:center">
+
+											<i aria-hidden="true">   </i>
+										</td>
+										<td colspan="1" style=" text-align:center">
+
+											<i aria-hidden="true">   </i>
+										</td>
+									</tr>
+									<tr style="height:10px">
+										<td colspan="10"></td>
+										<td colspan="1" style=" text-align:left"></td>
+										<td colspan="1" style=" text-align:left"></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+			}
+			else
+			{
+				<div>
+					<table class="hiddentable">
+						<tr>
+
+							<td></td>
+							<td>
+
+								<table class="alttable">
+									<tr style="height:3px">
+										<td colspan="10"></td>
+										<td colspan="1">
+											<i class="" aria-hidden="true">   </i>
+										</td>
+										<td colspan="1">
+											<i class="" aria-hidden="true">   </i>
+										</td>
+									</tr>
+									<tr style="height:5px">
+										<td colspan="10"></td>
+										<td colspan="1" style=" text-align:center">
+											<i class="fa fa-smile-o" aria-hidden="true"></i>
+										</td>
+										<td colspan="1" style="text-align:center">
+											<i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+										</td>
+									</tr>
+									<tr style="height:10px">
+										<td colspan="10"></td>
+										<td colspan="1">Hello, @UserName!</td>
+										<td colspan="1" style=" text-align:center"><NavLink href="" class="nav-item nav-link">Logout</NavLink></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+			}
+			<article class="content px-4">
+				@Body
+			</article>
+		</main>
+	</div>
 }
-@code{
-    bool LoggedIn, LoggedOut;
-    string UserName;
+@code {
+	bool LoggedIn, LoggedOut;
+	string UserName;
 
-    public bool pp_CollapseNavMenu { get; set; }
-    public string pp_AssemblyVersion { get; set; } 
-    private string _CollapseNavMenu => pp_CollapseNavMenu ? "collapse" : null;
-    private string _AssemblyVersion;
-    
-    protected override void OnInitialized()
-    {
-        _AssemblyVersion = AssemblyVersionService.GetstrAssemblyVersion();
-        //AppState.SetAssemblyVersionState(true);
-    }
+	public bool pp_CollapseNavMenu { get; set; }
+	public string pp_AssemblyVersion { get; set; }
+	private string _CollapseNavMenu => pp_CollapseNavMenu ? "collapse" : null;
+	private string _AssemblyVersion;
 
-    private void ToggleNavMenu(bool toggled)
-    {
-        pp_CollapseNavMenu = toggled;
-        if (pp_CollapseNavMenu)
-        {
-            pp_CollapseNavMenu = !pp_CollapseNavMenu;
-            pp_CollapseNavMenu = true;
-        }  
-        else
-        {
-            pp_CollapseNavMenu = false; 
-        }  
-    }
-    private void NavigateToEmail()
-    {
-        NavigationManager.NavigateTo("email");
-    }
+	protected override void OnInitialized()
+	{
+		_AssemblyVersion = AssemblyVersionService.GetstrAssemblyVersion();
+		//AppState.SetAssemblyVersionState(true);
+	}
+
+	private void ToggleNavMenu(bool toggled)
+	{
+		pp_CollapseNavMenu = toggled;
+		if (pp_CollapseNavMenu)
+		{
+			pp_CollapseNavMenu = !pp_CollapseNavMenu;
+			pp_CollapseNavMenu = true;
+		}
+		else
+		{
+			pp_CollapseNavMenu = false;
+		}
+	}
+	private void NavigateToEmail()
+	{
+		NavigationManager.NavigateTo("email");
+	}
 }

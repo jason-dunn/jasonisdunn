@@ -1,5 +1,5 @@
 i {
-    margin-inline: 4px 7px;
+    width: 28px;
 }
 
 .NavMenuCssClass{
@@ -10,10 +10,20 @@ i {
 }
 
 .navbar-brand {
+    background-color: rgba(255,255,255,0.25);
+    color: #FFFFFF;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-left: .1rem;
+    margin-right: .1rem;
+}
+/*.title {
+    background-color: rgba(255,255,255,0.25);
+    color: #FFFFFF;
     font-size: 1.1rem;
     margin-left: .3rem;
     margin-right: .3rem;
-}
+}*/
 
 .oi {
     width: 2rem;
@@ -39,7 +49,9 @@ i {
 }
 
 .nav-item ::deep a {
-    color: #d7d7d7;
+    background-color: rgba(255,255,255,0.1);
+    color: #FFFFFF;
+   /* color: #d7d7d7;*/
     border-radius: 4px;
     height: 1.8rem;
     display: flex;
@@ -47,15 +59,15 @@ i {
     line-height: 1rem;
 }
 
-    .nav-item ::deep a.active {
-        background-color: rgba(255,255,255,0.25);
-        color: white;
-    }
+.nav-item ::deep a.active {
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+}
 
-    .nav-item ::deep a:hover {
-        background-color: rgba(255,255,255,0.1);
-        color: white;
-    }
+.nav-item ::deep a:hover {
+    background-color: rgba(255,255,255,0.25);
+    color: white;
+}
 
 @media (min-width: 641px) {
     .navbar-toggler {
