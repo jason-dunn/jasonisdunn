@@ -13,8 +13,10 @@ namespace jasonisdunn.Data
         {
             Assembly _Assembly = Assembly.GetExecutingAssembly();
             AssemblyConfigurationAttribute configurationAttribute = _Assembly.GetCustomAttribute<AssemblyConfigurationAttribute>();
-            //private string _ConfigurationAttribute = configurationAttribute.Configuration();
-            if (configurationAttribute.Configuration == "Debug")
+            //TODO : 1
+            //
+            //Remove condition ( | configurationAttribute.Configuration == "Release")
+            if (configurationAttribute.Configuration == "Debug" | configurationAttribute.Configuration == "Release")
             {
                 AssemblyInformationalVersionAttribute versionAttribute = _Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
                 _AssemblyVersion = versionAttribute.InformationalVersion;
@@ -25,10 +27,9 @@ namespace jasonisdunn.Data
             }
             else
             {
-                //TODO
+                //TODO : 2
+                //
                 //Write "Release" _AssemblyVersion to database
-                _strAssemblyVersion = "Version " + " Not Verified";
-                //_strAssemblyVersion = "Release Assembly Version" + " -----      Not Verified       -----";
             }
 
             return _strAssemblyVersion;
