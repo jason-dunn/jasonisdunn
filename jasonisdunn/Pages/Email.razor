@@ -1,5 +1,5 @@
 ﻿@page  "/email"
-@layout Shared.Layouts.EmailLayout
+@layout EmailLayout
 
 @using Newtonsoft.Json.Linq;
 @using Microsoft.AspNetCore.Components.Forms;
@@ -7,15 +7,15 @@
 @using System.Net;
 @using System.Net.Mail;
 @using jasonisdunn.Data;
-@using jasonisdunn.Shared;
+@using jasonisdunn.Shared.Layouts;
+@using jasonisdunn.Shared.States;
 
 
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
 @inject PageHistoryState PageHistoryState
 
-
- <MudAppBar Fixed="true" Color="Color.Transparent" Style="left:-100px;" Bottom="true" Elevation="0" > 
+<MudAppBar Fixed="true" Color="Color.Transparent" Style="left:-100px;" Bottom="true" Elevation="0" > 
 <div class="emailcontent">
               <table class="tableemailcontinue">
             <tbody>
@@ -31,6 +31,9 @@
                     <td>
                         <button id="continueBtn" class="btn btn-primary @sentVisibility"
                                 type="submit" onclick="window.history.back()">
+                             @*   //TODO :3
+                                  Remove window.history.back
+                             *@
                             <i class="fa fa-hand-point-right" style="margin-left:14px"></i> Continue
                         </button>
                     </td>
@@ -50,25 +53,24 @@
                                         <tr>
                                             <td>                    
                                                 <label for="Name">Name</label>
-                                                <InputText id="Name" @bind-Value="_EmailFormModel.Name" />
+                                                <InputText style="width: 200px" id="Name" @bind-Value="_EmailFormModel.Name" />
                                                 <ValidationMessage For="@(() => _EmailFormModel.Name)" />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <label for="Email">Email</label>
-                                                <InputText id="Email" @bind-Value="_EmailFormModel.Email" />
+                                                <InputText style="width: 200px" id="Email" @bind-Value="_EmailFormModel.Email"  />
                                                 <ValidationMessage  For="@(() => _EmailFormModel.Email)" />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <label for="Message">Message</label>
-                                                <InputTextArea style="margin-bottom:2px" id="Message" @bind-Value="_EmailFormModel.Message" rows="4"  />
+                                                <InputTextArea style="margin-bottom:2px; width:200px; height:200px; resize: none" id="Message" @bind-Value="_EmailFormModel.Message"  rows="4"  />
                                                 <ValidationMessage For="@(() => _EmailFormModel.Message)" />
                                             </td>
                                         </tr>
-
                                         <tr>
                                             <td>
                                                 <div class="container">
@@ -94,8 +96,7 @@
                                                             <button id="cancelBtn" class="btn btn-primary @cancelVisibility"
                                                                     type="button" @onclick="OnCancel">
                                                                 <i class="far fa-window-close"> </i>   Cancel
-                                                            </button>
-                                                             
+                                                            </button>            
                                                         </div>
                                                     </div>
                                                 </div>
@@ -112,10 +113,10 @@
             <br />
             <br />
         </div>
-
     </div>
 </div>
 </MudAppBar>
+
 @code {
     private EmailFormModel _EmailFormModel = new EmailFormModel();
     private string formVisibility = "d-block";
@@ -129,8 +130,6 @@
         NavigationManager.LocationChanged += HandleLocationChanged; 
         PageHistoryState.AddPageToHistory("email");
     }
-
-
 
     private async Task OnSubmit()
     {
@@ -151,25 +150,31 @@
         var stringContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
         try
         {
-            var credentials = new NetworkCredential("01fa3dc1426e0b2b593ac9144547c317", "5128a955c7f4f8b57c9467e71ada4484");
+            var credentials = new NetworkCredential("dotnetcore@jasonisdunn.tech" ,"XS8ab6h*j");
             var mail = new MailMessage()
             {
-                From = new MailAddress("contact@jasonisdunn.tech"),
-                Subject = "Website Inquiry",
+                From = new MailAddress("jasonisdunn.tech<noreply@jasonisdunn.tech>"),
+                Subject = "Website Feedback",
                 Body = FormattedBody(_EmailFormModel.Name, _EmailFormModel.Email, _EmailFormModel.Message)
             };
             mail.IsBodyHtml = true;
             mail.To.Add(new MailAddress("contact@jasonisdunn.tech"));
-            mail.CC.Add(new MailAddress(_EmailFormModel.Email));
             var client = new SmtpClient()
             {
                 UseDefaultCredentials = false,
-                Host = "in-v3.mailjet.com",
+                Host = "mail.jasonisdunn.tech",
                 Credentials = credentials,
                 Port = 587,
-                EnableSsl = true
+                EnableSsl = false
             };
-            client.Send(mail);
+            try
+            {
+                client.Send(mail);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
         catch (Exception)
         {
@@ -177,7 +182,6 @@
         }
         await Task.Delay(0);
     }
-
     private string FormattedBody(string name, string email, string message)
     {
         var senderInfo = String.Format(

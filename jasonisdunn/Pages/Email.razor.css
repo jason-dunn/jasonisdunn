@@ -1,6 +1,17 @@
 i {
     width: 28px;
 }
+
+.table th, td {
+    color: #448AFF;
+}
+
+.btn-primary {
+    color: #FFFFFF;
+    background-color: #448AFF;
+    border-color: #448AFF;
+}
+
 .emailcontent {
     position: relative;
     overflow-y: scroll;
@@ -11,9 +22,6 @@ i {
     margin-left: 50vw;
     margin-right: 50vw;
     margin-bottom: 100vh;
-}
-
-.form {
 }
 
 .tableemail {

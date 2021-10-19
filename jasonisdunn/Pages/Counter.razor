@@ -1,18 +1,20 @@
 ﻿@page "/counter"
 @layout Shared.Layouts.MainLayout
-@using jasonisdunn.Data
+@using jasonisdunn.Data;
+@using jasonisdunn.Shared.States;
 @inject IncrementService IncrementService
 @inject MainState AppState
 @inject PageHistoryState PageHistoryState
 @inject Blazored.SessionStorage.ISessionStorageService localSession
-<h1>Counter</h1>
+<h2>Counter</h2>
+<br />
 @if (increment == null)
 {
-    <p>Loading... @currentCount</p>
+    <p><em>Loading...-current-count-</em></p>
 }
 else
 {
-    <p>Current count: @currentCount</p>
+    <h5>Current count: @currentCount</h5>
 
 }
 

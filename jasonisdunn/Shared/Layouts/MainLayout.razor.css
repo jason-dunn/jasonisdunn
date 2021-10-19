@@ -2,6 +2,7 @@
     position: relative;
     display: flex;
     flex-direction: row;
+ 
 }
 
 .main {
@@ -13,7 +14,9 @@
     height: 100vh;
     position: sticky;
     top: 0;
-    overflow-y:visible;
+    overflow-y: visible;
+    padding-left: 3px;
+    padding-right: 3px;
 }
 
 .my-toggle-off {

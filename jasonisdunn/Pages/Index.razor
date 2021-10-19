@@ -1,13 +1,62 @@
 ﻿@page "/"
-@page "/index"
-@layout Shared.Layouts.MainLayout
+@page "/index/{CurrentGuid:guid?}"
+@layout MainLayout
+@using jasonisdunn.Shared.Layouts;
+@using jasonisdunn.Shared.States;
+@using jasonisdunn.Data;
+@inject StatusService StatusService
+@inject MainState AppState
 @inject PageHistoryState PageHistoryState
+@inject Blazored.LocalStorage.ILocalStorageService localStore
+@inject Blazored.SessionStorage.ISessionStorageService localSession
+
+@if (status == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+@if (boolLoggedIn)
+{ 
+   <h5> @status.UserName</h5>
+   <h5> @status.EmailAddress</h5>
+   <h5> @status.Guid</h5> 
+}
+else
+{
+    <h2>Please Register!</h2>
+}
+}
 @code{
-	protected override void OnInitialized()
+    private Status? status;
+    [Parameter]
+    public Guid CurrentGuid { get; set; }
+    [Parameter]
+    public bool _LoggedIn { get; set; }
+    private bool boolLoggedIn;
+
+    protected override async Task OnInitializedAsync()
     {
-		PageHistoryState.AddPageToHistory("");
-		base.OnInitialized();
-	}
+        boolLoggedIn = await localSession.GetItemAsync<bool>("LoggedIn");
+        if (Convert.ToBoolean(!boolLoggedIn) & Convert.ToBoolean(!AppState.ppboolLoggedIn))
+        {
+
+            status = await StatusService.CreateStatusAsync(true);
+            AppState.SetLoggedInState(false);
+            AppState.OnChange += StateHasChanged;
+            PageHistoryState.AddPageToHistory("");
+        }
+        else
+        {
+            status = await StatusService.CreateStatusAsync(true);
+            status.LoggedIn = await localSession.GetItemAsync<bool>("LoggedIn");
+            status.UserName = await localSession.GetItemAsync<string>("UserName");
+            status.EmailAddress = await localSession.GetItemAsync<string>("EmailAddress");
+            status.Guid = await localSession.GetItemAsync<Guid>("Guid");
+        }
+        StateHasChanged();
+        base.OnInitialized();
+    }
 }
 
 

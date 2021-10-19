@@ -1,0 +1,27 @@
+﻿h2 {
+    color: #448AFF;
+}
+
+h5 {
+    color: #448AFF;
+    font-size: 12pt;
+}
+
+.fetchdatatable {
+    color: #448AFF;
+    width: 80%;
+    font-size: 16pt;
+    border-collapse: collapse;
+}
+.fetchdatatable th {
+    text-align: left;
+    border-bottom-color: #448AFF;
+    border-bottom-style:solid;
+}
+.fetchdatatable tr {
+    text-align: left;
+    border-bottom-color: #448AFF;
+    border-bottom-style: solid;
+    border-bottom-width:thin;
+    margin:10px;
+}

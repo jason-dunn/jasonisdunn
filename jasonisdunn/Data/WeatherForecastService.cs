@@ -14,7 +14,7 @@ namespace jasonisdunn.Data
         private static readonly string[] Summaries = new[]
         {"Bracing","Freezing", "Frosty",  "Cold", "Warm", "Hot", "Sweltering", "Scorching"};
 
-        public Task<WeatherForecast[]> GetForecastAsync(DateTime startDate, bool _bool)
+        public Task<WeatherForecast[]> CreateForecastAsync(DateTime startDate, bool _bool)
         {
             if (_bool)
             {

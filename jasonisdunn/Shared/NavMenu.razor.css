@@ -9,13 +9,19 @@ i {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-.navbar-brand {
+.navbar-brand ::deep {
     background-color: rgba(255,255,255,0.25);
     color: #FFFFFF;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     text-align: center;
     margin-left: .1rem;
     margin-right: .1rem;
+    line-height: 48px;
+}
+
+span {
+    color: #FFFFFF;
+    line-height: 30px;
 }
 
 .oi {
@@ -44,7 +50,6 @@ i {
 .nav-item ::deep a {
     background-color: rgba(255,255,255,0.1);
     color: #FFFFFF;
-   /* color: #d7d7d7;*/
     border-radius: 4px;
     height: 1.8rem;
     display: flex;
@@ -52,11 +57,10 @@ i {
     line-height: 1rem;
 }
 
-    .nav-item ::deep a.active {
-        display:none;
-    }
+.nav-item ::deep a.active {
+    display:none;
+}
   
-
 .nav-item ::deep a:hover {
     background-color: rgba(255,255,255,0.25);
     color: white;

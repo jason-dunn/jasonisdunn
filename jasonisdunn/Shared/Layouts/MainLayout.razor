@@ -1,5 +1,5 @@
 ﻿@inherits LayoutComponentBase
-@using jasonisdunn.Shared;
+@using jasonisdunn.Shared.States;
 @using jasonisdunn.Data;
 @inject MainState AppState
 @inject NavigationManager NavigationManager
@@ -31,7 +31,7 @@
 		<MudAppBar Elevation="0" Fixed="true" Bottom="true" Style="@($"color:{Colors.Blue.Accent2}; background:{Colors.Blue.Accent2};")">
 			<MudElement Style="width:104px;  text-align:left"><code style="color:white">@_AssemblyVersion</code></MudElement>
 			<MudAppBarSpacer />
-			<MudElement Style="width:118px; line-height:10px; text-align:left;"><code style="color:white">&copy;2021 jasonisdunn</code></MudElement>
+			<MudElement Style="width:148px; line-height:10px; text-align:left;"><code style="color:white">&copy;2021 jasonisdunn</code></MudElement>
 			<MudAppBarSpacer />
 			<MudElement Style="width:66px; line-height:10px; text-align:center"><code style="color:white">Contact Support </code></MudElement>
 			<MudIconButton Icon="@Icons.Material.Filled.ContactMail" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Link="email" OnClick="@NavigateToEmail"></MudIconButton>
@@ -45,10 +45,10 @@
 					<MudAppBar Elevation="0" Fixed="true" Color="Color.Transparent">
 						<MudAppBarSpacer />
 						<MudTooltip Text="Register" Style="padding-top:30px" Placement="Placement.Bottom">
-							<MudIconButton Icon="@Icons.Material.Rounded.Assignment" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Link="/register" Style="margin:10px"></MudIconButton>
+							<MudIconButton Icon="@Icons.Material.Rounded.Assignment" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Link="/session/register" Style="margin:10px"></MudIconButton>
 						</MudTooltip>
 						<MudTooltip Text="Login" Style="padding-top:30px" Placement="Placement.Bottom">
-							<MudIconButton Icon="@Icons.Material.Rounded.Login" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Link="/login" Style="margin:10px"></MudIconButton>
+							<MudIconButton Icon="@Icons.Material.Rounded.Login" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Link="/session/login" Style="margin:10px"></MudIconButton>
 						</MudTooltip>
 					</MudAppBar>
 					<table class="hiddentable">
@@ -149,7 +149,7 @@ else
 		<MudAppBar Elevation="0" Fixed="true" Bottom="true" Style="@($"color:{Colors.Blue.Accent2}; background:{Colors.Blue.Accent2};")">
 			<MudElement Style="width:104px;  text-align:left"><code style="color:white">@_AssemblyVersion </code></MudElement>
 			<MudAppBarSpacer />
-			<MudElement Style="width:118px; line-height:10px; text-align:left;"><code style="color:white">&copy;2021 jasonisdunn</code></MudElement>
+			<MudElement Style="width:148px; line-height:10px; text-align:left;"><code style="color:white">&copy;2021 jasonisdunn</code></MudElement>
 			<MudAppBarSpacer />
 			<MudElement Style="width:66px; line-height:10px; text-align:center"><code style="color:white">Contact Support </code></MudElement>
 			<MudIconButton Icon="@Icons.Material.Filled.ContactMail" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Link="/email"></MudIconButton>
@@ -161,10 +161,10 @@ else
 					<MudAppBar Elevation="0" Fixed="true" Color="Color.Transparent">
 						<MudAppBarSpacer />
 						<MudTooltip Text="Register" Style="padding-top:30px" Placement="Placement.Bottom">
-							<MudIconButton Icon="@Icons.Material.Rounded.Assignment" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Link="/register" Style="margin:10px;"></MudIconButton>
+							<MudIconButton Icon="@Icons.Material.Rounded.Assignment" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Link="/session/register" Style="margin:10px;"></MudIconButton>
 						</MudTooltip>
 						<MudTooltip Text="Login" Style="padding-top:30px" Placement="Placement.Bottom">
-							<MudIconButton Icon="@Icons.Material.Rounded.Login" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Link="/login" Style="margin:10px"></MudIconButton>
+							<MudIconButton Icon="@Icons.Material.Rounded.Login" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Link="/session/login" Style="margin:10px"></MudIconButton>
 						</MudTooltip>
 					</MudAppBar>
 

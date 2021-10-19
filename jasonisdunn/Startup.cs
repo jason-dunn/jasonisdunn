@@ -1,22 +1,19 @@
 using Blazored.LocalStorage;
 using Blazored.SessionStorage;
 using jasonisdunn.Data;
-using jasonisdunn.Shared;
+using jasonisdunn.Shared.States;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using MudBlazor.Services;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace jasonisdunn
 {
@@ -38,7 +35,10 @@ namespace jasonisdunn
             services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<IncrementService>();
             services.AddSingleton<AssemblyVersionService>();
+            services.AddSingleton<StatusService>();
             services.AddSingleton<EmailFormModel>();
+            services.AddSingleton<GuidGeneratorService>();
+            services.AddSingleton<CodeGeneratorService>();
             services.AddScoped<MainState>();
             services.AddSingleton<PageHistoryState>();
 

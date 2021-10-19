@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace jasonisdunn.Shared
+namespace jasonisdunn.Shared.States
 {
     public class PageHistoryState
     {

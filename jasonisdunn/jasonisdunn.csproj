@@ -10,6 +10,9 @@
   <UserSecretsId>f9b56fb3-0bf5-4ff5-b978-c3d1a52a1c6c</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Business\EFRegister.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Blazored.LocalStorage" Version="4.1.5" />
     <PackageReference Include="Blazored.SessionStorage" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.10" />
@@ -25,5 +28,8 @@
     </PackageReference>
     <PackageReference Include="MudBlazor" Version="5.1.5" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Business\" />
   </ItemGroup>
 </Project>
