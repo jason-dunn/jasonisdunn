@@ -37,6 +37,7 @@ namespace jasonisdunn
             services.AddSingleton<AssemblyVersionService>();
             services.AddSingleton<StatusService>();
             services.AddSingleton<EmailFormModel>();
+            services.AddSingleton<SMTPService>();
             services.AddSingleton<GuidGeneratorService>();
             services.AddSingleton<CodeGeneratorService>();
             services.AddScoped<MainState>();

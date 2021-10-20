@@ -1,17 +1,16 @@
 ﻿@page  "/email"
 @layout EmailLayout
 
-@using Newtonsoft.Json.Linq;
+@*@using Newtonsoft.Json.Linq;*@
 @using Microsoft.AspNetCore.Components.Forms;
 @using Microsoft.JSInterop;
-@using System.Net;
-@using System.Net.Mail;
 @using jasonisdunn.Data;
 @using jasonisdunn.Shared.Layouts;
 @using jasonisdunn.Shared.States;
 
 
 @inject IJSRuntime JSRuntime
+@inject SMTPService SMTPService
 @inject NavigationManager NavigationManager
 @inject PageHistoryState PageHistoryState
 
@@ -22,7 +21,9 @@
                 <tr>
                     <td>
                         <div class="bg-primary text-light rounded @sentVisibility">
-                            <i class=""></i> Successfully sent your email message.<br />Thanks for the feedback!<br />
+                            <i class=""></i>    <h4>Successfully sent your email message to support.</h4>
+                                                <br /><br />
+                                                <h4>Thanks for the feedback!</h4>
                         </div>
                     </td>
                 </tr>
@@ -30,10 +31,7 @@
                 <tr>
                     <td>
                         <button id="continueBtn" class="btn btn-primary @sentVisibility"
-                                type="submit" onclick="window.history.back()">
-                             @*   //TODO :3
-                                  Remove window.history.back
-                             *@
+                                type="submit" @onclick="OnCancelOrContinue">
                             <i class="fa fa-hand-point-right" style="margin-left:14px"></i> Continue
                         </button>
                     </td>
@@ -81,7 +79,7 @@
                                                                 <i class="far fa-paper-plane"> </i>   Submit
                                                             </button>
                                                             <div class="bg-primary text-light rounded  @sendVisibility">
-                                                                <i class="fa fa-cog fa-spin"> </i>   Sending
+                                                                <h3><span class="sending"><i class="fa fa-cog fa-spin"></i> Sending</span></h3> 
                                                             </div>
                                                         </div>
                                                     </div>
@@ -94,7 +92,7 @@
                                                     <div class="row">
                                                         <div class="col-10">
                                                             <button id="cancelBtn" class="btn btn-primary @cancelVisibility"
-                                                                    type="button" @onclick="OnCancel">
+                                                                    type="button" @onclick="OnCancelOrContinue">
                                                                 <i class="far fa-window-close"> </i>   Cancel
                                                             </button>            
                                                         </div>
@@ -119,6 +117,7 @@
 
 @code {
     private EmailFormModel _EmailFormModel = new EmailFormModel();
+    private SMTP _SMTP = new SMTP();
     private string formVisibility = "d-block";
     private string submitVisibility = "d-block";
     private string cancelVisibility  = "d-block";
@@ -135,61 +134,28 @@
     {
         submitVisibility = "d-none";
         cancelVisibility = "d-none";
-        await SubmitForm();
         sendVisibility = "d-inline-block";
-        await Task.Delay(1000);
-        sendVisibility = "d-none";
-        await Task.Delay(1000);
-        formVisibility = "d-none";
-        sentVisibility = "d-inline-block";
+        await SubmitForm();
     }
 
     private async Task SubmitForm()
     {
-        var json = Newtonsoft.Json.JsonConvert.SerializeObject(_EmailFormModel);
-        var stringContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-        try
-        {
-            var credentials = new NetworkCredential("dotnetcore@jasonisdunn.tech" ,"XS8ab6h*j");
-            var mail = new MailMessage()
-            {
-                From = new MailAddress("jasonisdunn.tech<noreply@jasonisdunn.tech>"),
-                Subject = "Website Feedback",
-                Body = FormattedBody(_EmailFormModel.Name, _EmailFormModel.Email, _EmailFormModel.Message)
-            };
-            mail.IsBodyHtml = true;
-            mail.To.Add(new MailAddress("contact@jasonisdunn.tech"));
-            var client = new SmtpClient()
-            {
-                UseDefaultCredentials = false,
-                Host = "mail.jasonisdunn.tech",
-                Credentials = credentials,
-                Port = 587,
-                EnableSsl = false
-            };
-            try
-            {
-                client.Send(mail);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
-        catch (Exception)
-        {
-            throw;
-        }
-        await Task.Delay(0);
-    }
-    private string FormattedBody(string name, string email, string message)
-    {
-        var senderInfo = String.Format(
-            "<b>From</b>: {0}<br/><b>Email</b>: {1}<br/>", name, email);
-        return senderInfo + message;
+        await Task.Delay(2500).ConfigureAwait(false);
+        sendVisibility = "d-none";
+        formVisibility = "d-none";
+        sentVisibility = "d-inline-block";
+        await SMTPService.Send(CreateSMTP(_SMTP));      
     }
 
-    private void OnCancel()
+    private SMTP CreateSMTP(SMTP smtp)
+    {
+        smtp.Name = _EmailFormModel.Name;
+        smtp.Email = _EmailFormModel.Email;
+        smtp.Message = _EmailFormModel.Message; 
+        return  smtp;
+    }
+
+    private void OnCancelOrContinue()
     {
         @if (PageHistoryState.CanGoBack())
         {
