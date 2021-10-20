@@ -11,7 +11,7 @@
 .register {
     margin-left: 50vw;
     margin-right: 50vw;
-    margin-bottom: 100vh;
+    margin-bottom: 80vh;
 }
 
 .form {
@@ -125,9 +125,25 @@ button {
         transform: scale(0.99);
     }
 
-.tableregistercontinue {
+h3 {
+    color: #448AFF;
+    text-align: center;
+}
 
+h4 {
+    color: #448AFF;
+    text-align: center;
+}
+.sending {
+    margin-left: 50px;
+}
+
+.registercontinue {
     margin-bottom: 100vh;
+}
+
+.tableregistercontinue {
+  
 }
 
     .tableregistercontinue th {

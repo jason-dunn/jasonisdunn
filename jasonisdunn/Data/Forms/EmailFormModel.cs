@@ -10,7 +10,7 @@ namespace jasonisdunn.Data
 
         [Required]
         [EmailAddress]
-        public string? Email { get; set; }
+        public string? EmailAddress { get; set; }
 
         [Required]
         public string? Message { get; set; }

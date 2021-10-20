@@ -7,10 +7,12 @@
 @using Microsoft.JSInterop;
 @using System.Net;
 @using System.Net.Mail;
+@using System.Threading
 @using jasonisdunn.Data;
 @using jasonisdunn.Data.Forms;
 @using jasonisdunn.Shared.Layouts;
 @using jasonisdunn.Shared.States;
+
 @inject IJSRuntime JSRuntime
 @inject HttpClient Http
 @inject NavigationManager NavigationManager
@@ -18,6 +20,7 @@
 @inject GuidGeneratorService GuidGeneratorService
 @inject CodeGeneratorService CodeGeneratorService
 @inject StatusService StatusService
+@inject SMTPService SMTPService
 @inject PageHistoryState PageHistoryState
 @inject Blazored.LocalStorage.ILocalStorageService localStore
 @inject Blazored.SessionStorage.ISessionStorageService localSession
@@ -74,7 +77,7 @@
                                                                 <i class="far fa-address-card"> </i> Register
                                                             </button>
                                                             <div class="bg-primary text-light rounded  @sendVisibility">
-                                                                <i class="fa fa-cog fa-spin"> </i>  Sending 
+                                                              <h3><span class="sending"><i class="fa fa-cog fa-spin"></i> Sending</span></h3> 
                                                             </div>
                                                         </div>
                                                     </div>
@@ -121,18 +124,20 @@
             <br />
             <br />
         </div>
-          <div class="form @codeVisibility" id="form" tabindex="0">
-         <EditForm style="color:#007bff" Model="@_CodeFormModel" OnValidSubmit="OnSubmitCode">
+        <div class="form @codeVisibility" id="form" tabindex="0">
+        <EditForm style="color:#007bff" Model="@_CodeFormModel" OnValidSubmit="OnSubmitCode">
+        <div class="registercontinue">
         <table class="tableregistercontinue">
             <tbody>
                 <tr>
                     <td>
                         <div class="bg-primary text-light rounded @sentVisibility">
-                            <i class=""></i> A registration email from jasonisdunn.tech <br />has been sent with a confirmation code!<br />
+                            <i class=""></i> 
+                            <h4>A registration email from jasonisdunn.tech</h4>                 
+                            <h4>has been sent with a confirmation code!</h4>
                         </div>
                     </td>
                 </tr>
-                <tr><br /><br /></tr>
                 <tr>
                     <td>
                         <label for="Code"  style="text-align:center; width:200px">Enter Code</label>
@@ -146,26 +151,20 @@
                  </tr>
                  <tr>
                     <td>
-                        <br />
                          <label style="text-align:center; width: 200px; color:red">@_WrongCode</label>
-                       <br />
-                    </td>
-                 </tr>
-                 <tr>
-                    <td>
-                         <br />      
                     </td>
                  </tr>
                  <tr>
                     <td>
                         <button id="continueBtn" class="btn btn-primary"
-                                type="submit" 
+                                type="submit" @onclick="OnSubmitCode">
                             <i class="fa fa-hand-point-right"> </i> Continue
                         </button>
                     </td>
                 </tr>
             </tbody>
         </table>
+        </div>
         </EditForm>
        </div>
     </div>
@@ -175,6 +174,7 @@
 @code {
     private RegisterFormModel _RegisterFormModel = new RegisterFormModel();
     private CodeFormModel _CodeFormModel = new CodeFormModel();
+    private SMTP _SMTP = new SMTP();
     private Status? status = new Status();
     private GuidGenerator? guidGenerator;
     private CodeGenerator? codeGenerator;   
@@ -187,46 +187,40 @@
     private Guid _Guid;
     private string? _Code, _WrongCode, _EmailExist;
 
-     protected override void OnInitialized()
+    protected override void OnInitialized()
     {
         NavigationManager.LocationChanged += HandleLocationChanged; 
         PageHistoryState.AddPageToHistory("register");
     }
 
-    //protected override async Task OnAfterRenderAsync(bool firstRender)
-    //{
-    //    if (firstRender)
-    //    {
-    //    }
-    //    else
-    //    {
-    //    }
-    //    StateHasChanged();
-    //    await Task.Delay(0);
-    //}
-
     private async Task OnSubmit()
     {
-        await Visibility(true);  
-        sendVisibility = "d-inline-block";
-        await Task.Delay(1);
-        if (await SubmitForm())
-        {      
-            sendVisibility = "d-none";
-            registerVisibility = "d-none";
-            sentVisibility = "d-inline-block";
-            codeVisibility = "d-block";
-            //SendEmail();
-        }
-        else
-        {
-            sendVisibility = "d-none";
-            registerVisibility = "d-block";
-            await Visibility(false);
-            _RegisterFormModel.EmailAddress = "";
-            _RegisterFormModel.Password1 = "";
-            _RegisterFormModel.Password2 = "";
-        }
+           await Visibility(true); 
+        CancellationTokenSource source = new CancellationTokenSource();
+        var t = Task.Run(async delegate
+              {
+                    if (!await SubmitForm())
+                    {
+                        sendVisibility = "d-none";
+                        registerVisibility = "d-block";
+                        await Visibility(false);
+                        _RegisterFormModel.EmailAddress = "";
+                        _RegisterFormModel.Password1 = "";
+                        _RegisterFormModel.Password2 = "";
+                        source.Cancel();
+                    }
+                 await Task.Delay(2500, source.Token);
+                 return 0;
+              });
+        
+              try {
+                    t.Wait();
+                  }
+                catch (AggregateException ae) {
+                foreach (var e in ae.InnerExceptions)
+                Console.WriteLine("{0}: {1}", e.GetType().Name, e.Message);
+                }
+       source.Dispose();
     }
 
     private async Task Visibility(bool Boolie)
@@ -235,6 +229,7 @@
         {
             submitVisibility = "d-none";
             cancelVisibility = "d-none";
+            sendVisibility = "d-inline-block";
         }
         else
         {
@@ -257,11 +252,16 @@
         //else
         //{
         //    _EmailExist = "";
-
-        await CreateGuid();
-        await CreateCode();
-        return true;
         //}
+
+            await CreateGuid();
+            await CreateCode();
+            await SMTPService.SendRegister(CreateSMTP(_SMTP), _Code ); 
+            sendVisibility = "d-none";
+            registerVisibility = "d-none";
+            sentVisibility = "d-inline-block";
+            codeVisibility = "d-block";
+        return true;   
     }
 
     private async Task OnSubmitCode()
@@ -299,60 +299,30 @@
         else
         status = await StatusService.CreateStatusAsync(false, status);
     }
-    //private void SendEmail ()
-    //{
-    //    try
-    //    {
-    //        var credentials = new NetworkCredential("01fa3dc1426e0b2b593ac9144547c317", "5128a955c7f4f8b57c9467e71ada4484");
-    //        var mail = new MailMessage()
-    //        {   
-    //            From = new MailAddress("noreply@jasonisdunn.tech","jasonisdunn.tech"),   
-    //            Subject = "Account Registration",
-    //            Body = FormattedBody(_RegisterFormModel.UserName, _RegisterFormModel.EmailAddress, _RegisterFormModel.Password1)
-    //        };
-    //        mail.ReplyToList.Add("noreply@jasonisdunn.tech");
-    //        mail.IsBodyHtml = true;
-    //        mail.To.Add(new MailAddress(_RegisterFormModel.EmailAddress));
-    //        var client = new SmtpClient()
-    //        {
-    //            UseDefaultCredentials = false,
-    //            Host = "in-v3.mailjet.com",
-    //            Credentials = credentials,
-    //            Port = 587,
-    //            EnableSsl = true
-    //        };
-    //        client.Send(mail);
-    //    }
-    //    catch (Exception)
-    //    {
-    //        throw;
-    //    }
-    //}
+
+    private SMTP CreateSMTP(SMTP smtp)
+    {
+        smtp.Name = _RegisterFormModel.UserName;
+        smtp.EmailAddress = _RegisterFormModel.EmailAddress;
+        return  smtp;
+    }
 
     private async Task UpdateConfirmed()
     {
-                 status.LoggedIn=AppState.ppboolLoggedIn = true;
-                 status.UserName=AppState.ppstrUserName = _RegisterFormModel.UserName;
-                 status.EmailAddress=AppState.ppstrEmailAddress = _RegisterFormModel.EmailAddress;
-                 AppState.ppstrPassword = _RegisterFormModel.Password1;
-                 status.Guid=AppState.ppguidGuid = _Guid;          
-                 await localSession.SetItemAsync("LoggedIn", AppState.ppboolLoggedIn);
-                 await localSession.SetItemAsync("UserName", AppState.ppstrUserName);
-                 await localSession.SetItemAsync("EmailAddress", AppState.ppstrEmailAddress);
-                 await localSession.SetItemAsync("Password", AppState.ppstrPassword);
-                 await localSession.SetItemAsync("Guid", AppState.ppguidGuid);
+            status.LoggedIn=AppState.ppboolLoggedIn = true;
+            status.UserName=AppState.ppstrUserName = _RegisterFormModel.UserName;
+            status.EmailAddress=AppState.ppstrEmailAddress = _RegisterFormModel.EmailAddress;
+            AppState.ppstrPassword = _RegisterFormModel.Password1;
+            status.Guid=AppState.ppguidGuid = _Guid;          
+            await localSession.SetItemAsync("LoggedIn", AppState.ppboolLoggedIn);
+            await localSession.SetItemAsync("UserName", AppState.ppstrUserName);
+            await localSession.SetItemAsync("EmailAddress", AppState.ppstrEmailAddress);
+            await localSession.SetItemAsync("Password", AppState.ppstrPassword);
+            await localSession.SetItemAsync("Guid", AppState.ppguidGuid);
     StateHasChanged();
     }
 
-    private string FormattedBody(string name, string email, string password)
-    {
-        var senderInfo = String.Format(
-            "<b>Your account username</b>: {0}<br/><b>Your primary email</b>: {1}<br/><b></b>{2}<br/>", name, email,"<br/>");
-        var code = String.Format(
-            "<b></b>{0}:<b></b> {1}<br/>", "Here is your confirmation code ", _Code);
-        return senderInfo + System.Environment.NewLine  + code ;
-    }
-        private void OnCancel()
+    private void OnCancel()
     {
         @if (PageHistoryState.CanGoBack())
         {

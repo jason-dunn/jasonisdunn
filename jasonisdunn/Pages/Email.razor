@@ -8,7 +8,6 @@
 @using jasonisdunn.Shared.Layouts;
 @using jasonisdunn.Shared.States;
 
-
 @inject IJSRuntime JSRuntime
 @inject SMTPService SMTPService
 @inject NavigationManager NavigationManager
@@ -21,9 +20,10 @@
                 <tr>
                     <td>
                         <div class="bg-primary text-light rounded @sentVisibility">
-                            <i class=""></i>    <h4>Successfully sent your email message to support.</h4>
-                                                <br /><br />
-                                                <h4>Thanks for the feedback!</h4>
+                            <i class=""></i>
+                            <h4>Successfully sent your email message to support.</h4>
+                            <br /><br />
+                            <h4>Thanks for the feedback!</h4>
                         </div>
                     </td>
                 </tr>
@@ -58,8 +58,8 @@
                                         <tr>
                                             <td>
                                                 <label for="Email">Email</label>
-                                                <InputText style="width: 200px" id="Email" @bind-Value="_EmailFormModel.Email"  />
-                                                <ValidationMessage  For="@(() => _EmailFormModel.Email)" />
+                                                <InputText style="width: 200px" id="Email" @bind-Value="_EmailFormModel.EmailAddress"  />
+                                                <ValidationMessage  For="@(() => _EmailFormModel.EmailAddress)" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -150,7 +150,7 @@
     private SMTP CreateSMTP(SMTP smtp)
     {
         smtp.Name = _EmailFormModel.Name;
-        smtp.Email = _EmailFormModel.Email;
+        smtp.EmailAddress = _EmailFormModel.EmailAddress;
         smtp.Message = _EmailFormModel.Message; 
         return  smtp;
     }
