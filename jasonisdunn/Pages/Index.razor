@@ -1,5 +1,6 @@
 ﻿@page "/"
 @page "/index/{CurrentGuid:guid?}"
+@page "/session/index"
 @layout MainLayout
 @using jasonisdunn.Shared.Layouts;
 @using jasonisdunn.Shared.States;
@@ -10,38 +11,31 @@
 @inject Blazored.LocalStorage.ILocalStorageService localStore
 @inject Blazored.SessionStorage.ISessionStorageService localSession
 
-@if (status == null)
+@if (status != null)
 {
-    <p><em>Loading...</em></p>
+    @if (boolLoggedIn)
+    {
+        <h4>@emailaddress</h4>
+        <h4>@guid</h4>
+    }
 }
-else
-{
-@if (boolLoggedIn)
-{ 
-   <h5> @status.UserName</h5>
-   <h5> @status.EmailAddress</h5>
-   <h5> @status.Guid</h5> 
-}
-else
-{
-    <h2>Please Register!</h2>
-}
-}
+
 @code{
     private Status? status;
     [Parameter]
-    public Guid CurrentGuid { get; set; }
+    public Guid? CurrentGuid { get; set; }
+    private Guid? guid;
+    private string  emailaddress;
     [Parameter]
     public bool _LoggedIn { get; set; }
     private bool boolLoggedIn;
 
     protected override async Task OnInitializedAsync()
     {
-        boolLoggedIn = await localSession.GetItemAsync<bool>("LoggedIn");
+        AppState.ppboolLoggedIn= boolLoggedIn = await localSession.GetItemAsync<bool>("LoggedIn");
+        AppState.ppboolRegister = await localSession.GetItemAsync<bool>("Register");
         if (Convert.ToBoolean(!boolLoggedIn) & Convert.ToBoolean(!AppState.ppboolLoggedIn))
         {
-
-            status = await StatusService.CreateStatusAsync(true);
             AppState.SetLoggedInState(false);
             AppState.OnChange += StateHasChanged;
             PageHistoryState.AddPageToHistory("");
@@ -51,8 +45,12 @@ else
             status = await StatusService.CreateStatusAsync(true);
             status.LoggedIn = await localSession.GetItemAsync<bool>("LoggedIn");
             status.UserName = await localSession.GetItemAsync<string>("UserName");
-            status.EmailAddress = await localSession.GetItemAsync<string>("EmailAddress");
-            status.Guid = await localSession.GetItemAsync<Guid>("Guid");
+            emailaddress = status.EmailAddress = await localSession.GetItemAsync<string>("EmailAddress");
+            guid = status.Guid = await localSession.GetItemAsync<Guid>("Guid");
+
+            status.Register = await localSession.GetItemAsync<bool>("Register");
+            AppState.ppboolRegister= status.Register;
+            AppState.SetLoggedInState(true);
         }
         StateHasChanged();
         base.OnInitialized();

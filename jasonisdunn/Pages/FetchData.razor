@@ -51,18 +51,18 @@ else
     protected override async Task OnInitializedAsync()
     {     
 
-        boolFetchData = await localSession.GetItemAsync<bool>("FetchData");
+        boolFetchData = await localSession.GetItemAsync<bool>("boolFetchData");
         
         if ( !boolFetchData & !AppState.ppboolFetchData )
             {
                 forecasts = await WeatherForecastService.CreateForecastAsync(DateTime.Now, true );
                 AppState.SetFetchDataState(true); 
-                await localSession.SetItemAsync("FetchData", true);
+                await localSession.SetItemAsync("boolFetchData", true);
             }
             else
             {
                 forecasts = await WeatherForecastService.CreateForecastAsync(DateTime.Now, false);
-                await localSession.SetItemAsync("FetchData", true);      
+                await localSession.SetItemAsync("boolFetchData", true);      
             }
              StateHasChanged();
         PageHistoryState.AddPageToHistory("fetchdata");

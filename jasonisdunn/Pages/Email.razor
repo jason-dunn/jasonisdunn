@@ -144,7 +144,7 @@
         sendVisibility = "d-none";
         formVisibility = "d-none";
         sentVisibility = "d-inline-block";
-        await SMTPService.Send(CreateSMTP(_SMTP));      
+        await SMTPService.SendEmail(CreateSMTP(_SMTP));      
     }
 
     private SMTP CreateSMTP(SMTP smtp)

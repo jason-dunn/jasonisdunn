@@ -17,7 +17,7 @@ namespace jasonisdunn.Data
             Port = 587,
             EnableSsl = false
         };
-        public async Task Send(SMTP smtp)
+        public async Task SendEmail(SMTP smtp)
         {
             try
             {         
@@ -85,6 +85,43 @@ namespace jasonisdunn.Data
             var _Code = String.Format(
                 "<b></b>{0}:<b></b> {1}<br/>", "Here is your confirmation code ", code);
             return senderInfo + System.Environment.NewLine + _Code;
+        }
+
+        public async Task SendLogin(SMTP smtp, string code)
+        {
+            try
+            {
+                var mail = new MailMessage()
+                {
+                    From = new MailAddress("jasonisdunn.tech<noreply@jasonisdunn.tech>"),
+                    Subject = "Account Login",
+                    Body = LoginFormattedBody(smtp, code)
+                };
+                mail.IsBodyHtml = true;
+                mail.ReplyToList.Add("noreply@jasonisdunn.tech");
+                mail.IsBodyHtml = true;
+                mail.To.Add(new MailAddress(smtp.EmailAddress));
+                try
+                {
+                    await client.SendMailAsync(mail);
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        static string LoginFormattedBody(SMTP smtp, string code)
+        {
+            var message = String.Format(
+                "<b>Are you trying to login? </b>  <br/>");
+            var _Code = String.Format(
+                "<b></b>{0}:<b></b> {1}<br/>", "Here is your confirmation code ", code);
+            return message + System.Environment.NewLine + _Code;
         }
     }
 }

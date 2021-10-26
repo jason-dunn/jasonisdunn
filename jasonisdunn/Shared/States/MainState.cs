@@ -13,6 +13,7 @@ namespace jasonisdunn.Shared.States
         private bool _boolFetchData;
         private bool _boolCounter;
         private bool _boolLoggedIn;
+        private bool _boolRegister;
         private bool? _LoggedIn = Status.LoggedIn;
 
         private string _AssemblyVersion;
@@ -28,6 +29,7 @@ namespace jasonisdunn.Shared.States
         public bool ppboolFetchData { get; set; }
         public bool ppboolCounter { get; set; }
         public bool ppboolLoggedIn { get; set; }
+        public bool? ppboolRegister { get; set; }
 
         public string ppAssemblyVersion { get; set; }
         public string ppstrAssemblyVersion { get; set; }
@@ -39,9 +41,6 @@ namespace jasonisdunn.Shared.States
 
         public Guid? ppguidGuid { get; set; }
 
-
-
-       
 
         //private AssemblyVersion AssemblyVersion = new AssemblyVersion();
 
@@ -55,6 +54,11 @@ namespace jasonisdunn.Shared.States
         public string  SetAssemblyVersion()
         {
             return ppAssemblyVersion = AssemblyVersion.pp_AssemblyVersion;
+        }
+
+        public void SetRegisterState(bool valueRegister)
+        {
+            ppboolRegister = _boolRegister = valueRegister;
         }
 
         public void SetLoggedInState(bool valueLoggedIn)

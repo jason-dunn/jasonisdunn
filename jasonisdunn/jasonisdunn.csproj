@@ -32,4 +32,18 @@
   <ItemGroup>
     <Folder Include="Business\" />
   </ItemGroup>
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Login.razor" />
+  </ItemGroup>
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Login.razor" />
+    <_ContentIncludedByDefault Remove="Shared\Layouts\LoginLayout.razor" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pages\Login.razor" />
+    <None Include="Shared\Layouts\LoginLayout.razor" />
+  </ItemGroup>
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Shared\Layouts\LoginLayout.razor" />
+  </ItemGroup>
 </Project>

@@ -1,9 +1,7 @@
-﻿@page "/register"
-@page "/session/register"
-@layout RegisterLayout
-
+﻿@page "/login"
+@page "/session/login"
+@layout LoginLayout
 @using System.Net.Http;
-@using Newtonsoft.Json.Linq;
 @using Microsoft.AspNetCore.Components.Forms;
 @using Microsoft.JSInterop;
 @using System.Net;
@@ -28,46 +26,31 @@
 
 
 <MudAppBar Fixed="true" Color="Color.Transparent" Style="left:-100px;" Bottom="true" Elevation="0" > 
-<div class="registercontent">
-    <div class="register">
-        <div class="form @registerVisibility" id="form" tabindex="0">
-            <EditForm style="color:#007bff" Model="@_RegisterFormModel" OnValidSubmit="OnSubmit">
-                <table class="tableregister" >
+<div class="logincontent">
+    <div class="login">
+        <div class="form @loginVisibility" id="form" tabindex="0">
+            <EditForm style="color:#007bff" Model="@_loginFormModel" OnValidSubmit="OnSubmit">
+                <table class="tablelogin" >
                     <tbody>
                         <tr>
                             <td>
-                                <table class="tableregistercontent">
+                                <table class="tablelogincontent">
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <label for="Name">Username</label>
-                                                <InputText style="width: 200px"  id="Name" @bind-Value="_RegisterFormModel.UserName" />
-                                                <ValidationMessage For="@(() => _RegisterFormModel.UserName)" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
                                                 <label for="Email">Email</label>
-                                                <InputText style="width: 200px"  id="Email" @bind-Value="_RegisterFormModel.EmailAddress" />
-                                                <ValidationMessage  For="@(() => _RegisterFormModel.EmailAddress)" />
+                                                <InputText style="width: 200px"  id="Email" @bind-Value="_loginFormModel.EmailAddress" />
+                                                <ValidationMessage  For="@(() => _loginFormModel.EmailAddress)" />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <label type="password" for="Password2">Password</label>
-                                                <InputText style="width: 200px"  type="password"   id="Password" @bind-Value="_RegisterFormModel.Password2"  />
-                                                <ValidationMessage For="@(() => _RegisterFormModel.Password2)" />
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <label for="Password">Re-type Password</label>
-                                                <InputText style="width: 200px"  type="password" id="Password1" @bind-Value="_RegisterFormModel.Password1"  />
-                                                <ValidationMessage For="@(() => _RegisterFormModel.Password1)" />
+                                                <label for="Password">Password</label>
+                                                <InputText style="width: 200px"  type="password" id="Password1" @bind-Value="_loginFormModel.Password1"  />
+                                                <ValidationMessage For="@(() => _loginFormModel.Password1)" />
                                             </td>
                                         </tr>
-                                        <tr><td><br /><label style="text-align:center; width: 200px; color:red">@_EmailExist</label></td></tr>
+                                        <tr><td><br /><label class="@comboVisibility" style="text-align:center; width: 200px; color:red">@_ComboCheck</label></td></tr>
                                         <tr>
                                             <td>
                                                 <div class="container">
@@ -75,7 +58,7 @@
                                                         <div class="col-10">
                                                             <button id="submitBtn" class="btn btn-primary @submitVisibility"
                                                                     type="submit">
-                                                                <i class="far fa-address-card"> </i> Register
+                                                                <i class="far fa-address-card"> </i> Login
                                                             </button>
                                                             <div class="bg-primary text-light rounded  @sendVisibility">
                                                               <h3><span class="sending"><i class="fa fa-cog fa-spin"></i> Sending</span></h3> 
@@ -127,14 +110,14 @@
         </div>
         <div class="form @codeVisibility" id="form" tabindex="0">
         <EditForm style="color:#007bff" Model="@_CodeFormModel" OnValidSubmit="OnSubmitCode">
-        <div class="registercontinue">
-        <table class="tableregistercontinue">
+        <div class="logincontinue">
+        <table class="tablelogincontinue">
             <tbody>
                 <tr>
                     <td>
                         <div class="bg-primary text-light rounded @sentVisibility">
                             <i class=""></i> 
-                            <h4>A registration email from jasonisdunn.tech</h4>                 
+                            <h4>A login email from jasonisdunn.tech</h4>                 
                             <h4>has been sent with a confirmation code!</h4>
                         </div>
                     </td>
@@ -173,25 +156,27 @@
 </MudAppBar>
 
 @code {
-    private RegisterFormModel _RegisterFormModel = new RegisterFormModel();
+    private LoginFormModel _loginFormModel = new LoginFormModel();
     private CodeFormModel _CodeFormModel = new CodeFormModel();
     private SMTP _SMTP = new SMTP();
     private Status? status = new Status();
     private GuidGenerator? guidGenerator;
     private CodeGenerator? codeGenerator;   
-    private string registerVisibility = "d-block";
+    private string loginVisibility = "d-block";
     private string codeVisibility = "d-none";
     private string submitVisibility = "d-block";
     private string cancelVisibility  = "d-block";
     private string sendVisibility = "d-none";
     private string sentVisibility = "d-none";
+    private string comboVisibility = "d-block";
     private Guid _Guid;
-    private string? _Code, _WrongCode, _EmailExist;
+    private string? _Code, _WrongCode, _ComboCheck;
+    static string _Combo = "Email and/or Password is incorrect";
 
     protected override void OnInitialized()
     {
         NavigationManager.LocationChanged += HandleLocationChanged; 
-        PageHistoryState.AddPageToHistory("register");
+        PageHistoryState.AddPageToHistory("login");
     }
 
     private async Task OnSubmit()
@@ -203,11 +188,18 @@
                   if (!await SubmitForm())
                   {
                       sendVisibility = "d-none";
-                      registerVisibility = "d-block";
+                      loginVisibility = "d-block";
                       await Visibility(false);
-                      _RegisterFormModel.EmailAddress = "";
-                      _RegisterFormModel.Password1 = "";
-                      _RegisterFormModel.Password2 = "";
+                      _loginFormModel.EmailAddress = "";
+                      _loginFormModel.Password1 = "";
+                      source.Cancel();
+                  }
+                  else
+                  {
+                      sendVisibility = "d-none";
+                      loginVisibility = "d-none";
+                      sentVisibility = "d-inline-block";
+                      codeVisibility = "d-block";
                       source.Cancel();
                   }
                   await Task.Delay(2500, source.Token);
@@ -221,6 +213,7 @@
             foreach (var e in ae.InnerExceptions)
                 Console.WriteLine("{0}: {1}", e.GetType().Name, e.Message);
         }
+
         source.Dispose();
     }
 
@@ -230,10 +223,12 @@
         {
             submitVisibility = "d-none";
             cancelVisibility = "d-none";
+            comboVisibility = "d-none";
             sendVisibility = "d-inline-block";
         }
         else
         {
+            comboVisibility = "d-block";
             submitVisibility = "d-block";
             cancelVisibility = "d-block";
         }
@@ -242,27 +237,28 @@
 
     private async Task<bool> SubmitForm()
     {
-        //var json = Newtonsoft.Json.JsonConvert.SerializeObject(_RegisterFormModel);
-        //var stringContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-        //if (await CheckEmailAddress())
-        //{
-        //    _EmailExist = "Email already exists!";
-        //    registerVisibility = "d-block";
-        //      return false;
-        //}
-        //else
-        //{
-        //    _EmailExist = "";
-        //}
+        if (AppState.ppstrEmailAddress!=_loginFormModel.EmailAddress)
+        {
+            _ComboCheck = _Combo;
+            return false;
+        }
+        else
+        {
+            _ComboCheck = "";
 
-        await CreateGuid();
-        await CreateCode();
-        await SMTPService.SendRegister(CreateSMTP(_SMTP), _Code ); 
-        sendVisibility = "d-none";
-        registerVisibility = "d-none";
-        sentVisibility = "d-inline-block";
-        codeVisibility = "d-block";
-        return true;   
+            if(AppState.ppstrPassword!=_loginFormModel.Password1)
+            {
+                _ComboCheck = _Combo;
+                return false;  
+            }
+            else
+            {
+                await CreateCode();
+                await SMTPService.SendLogin(CreateSMTP(_SMTP), _Code ); 
+                _ComboCheck = "";
+                return true;  
+            }
+        }
     }
 
     private async Task OnSubmitCode()
@@ -272,7 +268,6 @@
             await CreateStatus(false);
             await UpdateConfirmed();
             await CreateStatus(true);
-            AppState.SetRegisterState(true);
             NavigationManager.NavigateTo("index/{" + _Guid.ToString() + "}");    
         }
         else
@@ -282,10 +277,9 @@
         }     
     }
 
-    private async Task CreateGuid()
+    private async Task<Guid> GetGuid()
     {
-        guidGenerator = await GuidGeneratorService.CreateGuidAsync();
-        _Guid = guidGenerator.Guid;
+         return _Guid = await  localSession.GetItemAsync<Guid>("Guid");
     }
 
     private async Task CreateCode()
@@ -293,59 +287,38 @@
         codeGenerator = await CodeGeneratorService.CreateCodeAsync();
         _Code = codeGenerator.Code;
     }
+
     private async Task CreateStatus(bool boolValue)
     {
         if(!boolValue)
-        status = await StatusService.CreateStatusAsync(true);
+            status = await StatusService.CreateStatusAsync(true);
         else
-        status = await StatusService.CreateStatusAsync(false, status);
+            status = await StatusService.CreateStatusAsync(false, status);
     }
 
     private SMTP CreateSMTP(SMTP smtp)
     {
-        smtp.Name = _RegisterFormModel.UserName;
-        smtp.EmailAddress = _RegisterFormModel.EmailAddress;
+        smtp.EmailAddress = _loginFormModel.EmailAddress;
         return  smtp;
     }
 
     private async Task UpdateConfirmed()
     {
-            status.LoggedIn=AppState.ppboolLoggedIn = true;
-            status.UserName=AppState.ppstrUserName = _RegisterFormModel.UserName;
-            status.EmailAddress=AppState.ppstrEmailAddress = _RegisterFormModel.EmailAddress;
-            AppState.ppstrPassword = _RegisterFormModel.Password1;
-            status.Guid=AppState.ppguidGuid = _Guid;          
+            status.LoggedIn = AppState.ppboolLoggedIn = true;
+            status.EmailAddress = AppState.ppstrEmailAddress = _loginFormModel.EmailAddress;
+            status.Password = AppState.ppstrPassword = _loginFormModel.Password1;
+            status.Guid = AppState.ppguidGuid =  await GetGuid();  
             await localSession.SetItemAsync("LoggedIn", AppState.ppboolLoggedIn);
-            await localSession.SetItemAsync("UserName", AppState.ppstrUserName);
-            await localSession.SetItemAsync("EmailAddress", AppState.ppstrEmailAddress);
-            await localSession.SetItemAsync("Password", AppState.ppstrPassword);
-            await localSession.SetItemAsync("Guid", AppState.ppguidGuid);
-            await localSession.SetItemAsync("Register", true);
     StateHasChanged();
     }
 
     private void OnCancel()
     {
-        @if (PageHistoryState.CanGoBack())
-        {
-            sendVisibility = "d-none";
-            registerVisibility = "d-none";
-            sentVisibility = "d-none";
-            codeVisibility = "d-none";
-            submitVisibility = "d-none";
-            cancelVisibility = "d-none"; 
-            sendVisibility = "d-none";
-   
-            NavigationManager.NavigateTo(PageHistoryState.GetGoBackPage());
-            PageHistoryState.ClearPageToHistory();
-        }
-        else
-        {
-            NavigationManager.NavigateTo("https://jasonisdunn.tech");
-        }
+            NavigationManager.NavigateTo("/");  
             this.Dispose();
     }
-        private void HandleLocationChanged(object sender, LocationChangedEventArgs e)
+
+    private void HandleLocationChanged(object sender, LocationChangedEventArgs e)
     {
     
     }
