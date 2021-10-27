@@ -18,7 +18,6 @@ namespace jasonisdunn.Shared.States
 
         private string _AssemblyVersion;
         private string _strAssemblyVersion;
-        private string _strRegister;
         private string? _UserName = Status.UserName;
         private string? _EmailAddress = Status.EmailAddress;
 
@@ -37,7 +36,6 @@ namespace jasonisdunn.Shared.States
         public string? ppstrUserName { get; set; }
         public string? ppstrEmailAddress { get; set; }
         public string? ppstrPassword { get; set; }
-        public string? ppstrRegister { get; set; }
 
         public int ppintCounter { get; set;}
 
@@ -49,17 +47,13 @@ namespace jasonisdunn.Shared.States
         public event Action OnChange;
         private void NotifyStateChanged() => OnChange?.Invoke();
 
-        public void SetAssemblyVersionState(bool valueAssemblyVersion)
+        public void SetAssemblyVersionState( bool valueAssemblyVersion)
         {
             ppboolAssemblyVersion = _boolAssemblyVersion = valueAssemblyVersion;
         }
         public string  SetAssemblyVersion()
         {
             return ppAssemblyVersion = AssemblyVersion.pp_AssemblyVersion;
-        }
-        public string SetRegister(string valueRegister)
-        {
-            return ppstrRegister = _strRegister = valueRegister;
         }
 
         public void SetRegisterState(bool valueRegister)
@@ -81,7 +75,6 @@ namespace jasonisdunn.Shared.States
         {
             ppboolCounter = _boolCounter = valueCounter;
         }
-
         //public void SetStatus()
         //{
         //   ppstatusStatus = Status;

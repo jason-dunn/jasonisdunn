@@ -2,9 +2,8 @@
 @using jasonisdunn.Shared.States;
 @using jasonisdunn.Data;
 @inject MainState AppState
-@inject StatusService StatusService
-@inject AssemblyVersionService AssemblyVersionService
 @inject NavigationManager NavigationManager
+@inject AssemblyVersionService AssemblyVersionService
 @inject Blazored.LocalStorage.ILocalStorageService localStore
 @inject Blazored.SessionStorage.ISessionStorageService localSession
 
@@ -24,23 +23,23 @@
 				</MudTooltip>
 			</div>	
 		<MudAppBar Elevation="0" Fixed="true" Bottom="true" Style="@($"color:{Colors.Blue.Accent2}; background:{Colors.Blue.Accent2};")">
-			<MudElement Style="width:104px;  text-align:left"><code style="color:white">@AppState.ppstrAssemblyVersion</code></MudElement>
-			<MudSpacer />
+			<MudElement Style="width:104px;  text-align:left"><code style="color:white">@_AssemblyVersion</code></MudElement>
+			<MudAppBarSpacer />
 			<MudElement Style="width:148px; line-height:10px; text-align:left;"><code style="color:white">&copy;2021 jasonisdunn</code></MudElement>
-			<MudSpacer />
+			<MudAppBarSpacer />
 			<MudElement Style="width:66px; line-height:10px; text-align:center"><code style="color:white">Contact Support </code></MudElement>
 			<MudIconButton Icon="@Icons.Material.Filled.ContactMail" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Link="email" OnClick="@NavigateToEmail"></MudIconButton>
 		</MudAppBar>
 		<main>
-			<br />
-			<h2>@AppState.ppstrRegister </h2>
-			@if (!AppState.ppboolLoggedIn)
+			@if (!boolLoggedIn)
 			{
-				@if (Convert.ToBoolean(!AppState.ppboolRegister))
+				<h2>@strRegister</h2>
+
+				@if (!boolRegister)
 				{
 				<div>
 					<MudAppBar Elevation="0" Fixed="true" Color="Color.Transparent">
-						<MudSpacer />
+						<MudAppBarSpacer />
 						<MudTooltip Text="Register" Style="padding-top:30px" Placement="Placement.Bottom">
 							<MudIconButton Icon="@Icons.Material.Rounded.Assignment" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Link="/session/register" Style="margin:10px"></MudIconButton>
 						</MudTooltip>
@@ -90,7 +89,7 @@
 				{
 				<div>
 					<MudAppBar Elevation="0" Fixed="true" Color="Color.Transparent">
-						<MudSpacer />
+						<MudAppBarSpacer />
 						<MudTooltip Text="Login" Style="padding-top:30px" Placement="Placement.Bottom">
 							<MudIconButton Icon="@Icons.Material.Rounded.Login" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Link="/session/login" Style="margin:10px"></MudIconButton>
 						</MudTooltip>
@@ -138,10 +137,10 @@
 			{
 				<div>
 					<MudAppBar Elevation="0" Fixed="true" Color="Color.Transparent">
-					<MudSpacer />
+					<MudAppBarSpacer />
 					<MudTooltip Text="" Style="padding-top:30px" Placement="Placement.Bottom">
 						</MudTooltip>
-						<MudElement><h4>Hello, @AppState.ppstrUserName!</h4></MudElement>
+						<MudElement><h4>Hello, @strUserName!</h4></MudElement>
 						<MudIcon Icon="@Icons.Material.Rounded.SentimentSatisfiedAlt" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small"></MudIcon>	
 						<MudTooltip Text="Logout" Style="padding-top:30px" Placement="Placement.Bottom">
 							<MudIconButton Icon="@Icons.Material.Rounded.Logout" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" OnClick="@NavigateToLogout"  Style="margin:10px"></MudIconButton>
@@ -151,6 +150,7 @@
 						<tr>
 							<td></td>
 							<td>
+
 								<table class="alttable">
 									<tr style="height:3px">
 										<td colspan="10"></td>
@@ -182,12 +182,6 @@
 				</div>
 			}
 			<article class="content px-4">
-				@if (@AppState.ppboolLoggedIn)
-				{
-					<h2>@AppState.ppstrEmailAddress</h2>
-					<h2>@AppState.ppguidGuid</h2>
-				}
-
 				@Body
 			</article>
 		</main>
@@ -206,23 +200,22 @@ else
 			</MudTooltip>
 		</div>
 		<MudAppBar Elevation="0" Fixed="true" Bottom="true" Style="@($"color:{Colors.Blue.Accent2}; background:{Colors.Blue.Accent2};")">
-			<MudElement Style="width:104px;  text-align:left"><code style="color:white">@AppState.ppstrAssemblyVersion </code></MudElement>
-			<MudSpacer />
+			<MudElement Style="width:104px;  text-align:left"><code style="color:white">@_AssemblyVersion </code></MudElement>
+			<MudAppBarSpacer />
 			<MudElement Style="width:148px; line-height:10px; text-align:left;"><code style="color:white">&copy;2021 jasonisdunn</code></MudElement>
-			<MudSpacer />
+			<MudAppBarSpacer />
 			<MudElement Style="width:66px; line-height:10px; text-align:center"><code style="color:white">Contact Support </code></MudElement>
 			<MudIconButton Icon="@Icons.Material.Filled.ContactMail" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Link="/email"></MudIconButton>
 		</MudAppBar>
 		<main>
-			<br />
-			<h2>@AppState.ppstrRegister </h2>
-			@if (!AppState.ppboolLoggedIn)
+			@if (!boolLoggedIn)
 			{
-				@if (Convert.ToBoolean(!AppState.ppboolRegister))
+					<h2>@strRegister</h2>
+				@if (!boolRegister)
 				{
 					<div>
 						<MudAppBar Elevation="0" Fixed="true" Color="Color.Transparent">
-							<MudSpacer />
+							<MudAppBarSpacer />
 							<MudTooltip Text="Register" Style="padding-top:30px" Placement="Placement.Bottom">
 								<MudIconButton Icon="@Icons.Material.Rounded.Assignment" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Link="/session/register" Style="margin:10px;"></MudIconButton>
 							</MudTooltip>
@@ -230,10 +223,12 @@ else
 								<MudIconButton Icon="@Icons.Material.Rounded.Login" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Link="/session/login" Style="margin:10px"></MudIconButton>
 							</MudTooltip>
 						</MudAppBar>
+
 						<table class="hiddentable">
 							<tr>
 								<td></td>
 								<td>
+
 									<table class="maintable">
 										<tr style="height:3px">
 											<td colspan="10"></td>
@@ -270,15 +265,17 @@ else
 				{
 					<div>
 						<MudAppBar Elevation="0" Fixed="true" Color="Color.Transparent">
-							<MudSpacer />
+							<MudAppBarSpacer />
 							<MudTooltip Text="Login" Style="padding-top:30px" Placement="Placement.Bottom">
 								<MudIconButton Icon="@Icons.Material.Rounded.Login" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Link="/session/login" Style="margin:10px"></MudIconButton>
 							</MudTooltip>
 						</MudAppBar>		
 						<table class="hiddentable">
 							<tr>
+
 								<td></td>
 								<td>
+
 									<table class="maintable">
 										<tr style="height:3px">
 											<td colspan="10"></td>
@@ -292,6 +289,7 @@ else
 										<tr style="height:8px">
 											<td colspan="10"></td>
 											<td colspan="1" style=" text-align:center">
+
 												<i aria-hidden="true">   </i>
 											</td>
 											<td colspan="1" style=" text-align:center">
@@ -315,10 +313,10 @@ else
 			{
 				<div>
 					<MudAppBar Elevation="0" Fixed="true" Color="Color.Transparent">
-					<MudSpacer />
+					<MudAppBarSpacer />
 					<MudTooltip Text="" Style="padding-top:30px" Placement="Placement.Bottom">
 						</MudTooltip>
-						<MudElement><h4>Hello, @AppState.ppstrUserName!</h4></MudElement>
+						<MudElement><h4>Hello, @strUserName!</h4></MudElement>
 						<MudIcon Icon="@Icons.Material.Rounded.SentimentSatisfiedAlt" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small"></MudIcon>	
 						<MudTooltip Text="Logout" Style="padding-top:30px" Placement="Placement.Bottom">
 							<MudIconButton Icon="@Icons.Material.Rounded.Logout" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" OnClick="@NavigateToLogout"  Style="margin:10px"></MudIconButton>
@@ -328,6 +326,7 @@ else
 						<tr>
 							<td></td>
 							<td>
+
 								<table class="alttable">
 									<tr style="height:3px">
 										<td colspan="10"></td>
@@ -359,76 +358,40 @@ else
 				</div>
 			}
 			<article class="content px-4">
-				@if (@AppState.ppboolLoggedIn)
-				{
-					<h2>@AppState.ppstrEmailAddress</h2>
-					<h2>@AppState.ppguidGuid</h2>
-				}
-
 				@Body
 			</article>
 		</main>
 	</div>
 }
 @code {
-	private Status? status;
-	private AssemblyVersion assemblyversion;
+	bool boolLoggedIn, boolLoggedOut, boolRegister;
+	string strUserName, strRegister;
 
 	public bool pp_CollapseNavMenu { get; set; }
+	public string pp_AssemblyVersion { get; set; }
 	private string _CollapseNavMenu => pp_CollapseNavMenu ? "collapse" : null;
+	private string _AssemblyVersion;
 
 	protected override async Task OnInitializedAsync()
 	{
-		assemblyversion = await AssemblyVersionService.GetstrAssemblyVersion();
-		AppState.ppstrAssemblyVersion= assemblyversion.pp_strAssemblyVersion;
-	}
+		_AssemblyVersion = AssemblyVersionService.GetstrAssemblyVersion();
+		//AppState.SetAssemblyVersionState(true);
 
-	protected override async Task OnAfterRenderAsync(bool firstRender)
-	{
-		if (firstRender)
-		{
-			await getInfo();
-			StateHasChanged();
-		}
-	}
-
-	private async Task getInfo()
-	{
 		AppState.ppboolRegister = await localSession.GetItemAsync<bool>("Register");
-
-		if(Convert.ToBoolean(!AppState.ppboolRegister))
-		{
-				AppState.SetRegister("Please Register!");
-		}
-		else
-		{
-				AppState.SetRegister("");
-		}
-
-		AppState.ppboolLoggedIn = await localSession.GetItemAsync<bool>("LoggedIn");
-		AppState.ppboolRegister = await localSession.GetItemAsync<bool>("Register");
-		AppState.ppstrUserName = await localSession.GetItemAsync<string>("UserName");
+		boolRegister = Convert.ToBoolean(AppState.ppboolRegister);
+		
+			if(boolRegister)
+			{
+				strRegister = "";
+			}
+			else
+			{
+				strRegister = "Please Register!";
+			}
+		boolLoggedIn = AppState.ppboolLoggedIn = await localSession.GetItemAsync<bool>("LoggedIn");
+		strUserName = AppState.ppstrUserName = await localSession.GetItemAsync<string>("UserName");
 		AppState.ppstrEmailAddress = await localSession.GetItemAsync<string>("EmailAddress");
 		AppState.ppstrPassword = await localSession.GetItemAsync<string>("Password");
-		AppState.ppguidGuid = await localSession.GetItemAsync<Guid>("Guid");
-
-		if (Convert.ToBoolean(!AppState.ppboolLoggedIn))
-		{
-			AppState.SetLoggedInState(false);
-		}
-		else
-		{
-			status = await StatusService.CreateStatusAsync(true);
-			status.LoggedIn = await localSession.GetItemAsync<bool>("LoggedIn");
-			status.Register = await localSession.GetItemAsync<bool>("Register");
-			status.UserName = await localSession.GetItemAsync<string>("UserName");
-			status.EmailAddress = await localSession.GetItemAsync<string>("EmailAddress");
-			status.Password = await localSession.GetItemAsync<string>("Password");
-			status.Guid = await localSession.GetItemAsync<Guid>("Guid");
-
-			AppState.ppboolRegister = status.Register;
-			AppState.SetLoggedInState(true);
-		}
 	}
 
 	private void ToggleNavMenu(bool toggled)
@@ -443,9 +406,7 @@ else
 		{
 			pp_CollapseNavMenu = false;
 		}
-	StateHasChanged();
 	}
-
 	private void NavigateToEmail()
 	{
 		NavigationManager.NavigateTo("email");
@@ -453,7 +414,11 @@ else
 		private async Task  NavigateToLogout()
 	{
 		    await localSession.RemoveItemAsync("LoggedIn");
-			AppState.SetLoggedInState(false);
+            //await localSession.RemoveItemAsync("UserName");
+            //await localSession.RemoveItemAsync("EmailAddress");
+            //await localSession.RemoveItemAsync("Password");
+            //await localSession.RemoveItemAsync("Guid");
+            //await localSession.RemoveItemAsync("Register");
 			StateHasChanged();
 			NavigationManager.NavigateTo("login");
 	}

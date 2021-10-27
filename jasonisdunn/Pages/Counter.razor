@@ -16,9 +16,8 @@
 }
 else
 {
-    <MudAppBar Elevation="0" Fixed="false" Color="Color.Transparent">
-    <h5>Current count  </h5><h5> : </h5> <h2> @currentCount</h2>
-     </MudAppBar>
+    <h5>Current count: @currentCount</h5>
+
 }
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
@@ -31,22 +30,7 @@ else
     public bool _Counter { get; set; }
     private bool boolCounter;
 
-    protected override void OnInitialized()
-    {
-        PageHistoryState.AddPageToHistory("counter");
-        StateHasChanged();
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await getInfo();
-            StateHasChanged();
-        }
-    }
-
-    private async Task getInfo()
+    protected override async void OnInitialized()
     {
         boolCounter = await localSession.GetItemAsync<bool>("boolCounter");
         AppState.ppintCounter= await localSession.GetItemAsync<int>("intCounter");
@@ -54,7 +38,7 @@ else
 
         if (!boolCounter  & !AppState.ppboolCounter)
         {
-            await IncrementCount();
+            IncrementCount();
             increment = new Increment();
             increment = await IncrementService.GetCounterAsync(boolCounter,AppState.ppintCounter);
             AppState.SetCounterState(true); 
@@ -66,8 +50,11 @@ else
             AppState.ppintCounter = increment.Counter;
             await localSession.SetItemAsync("boolCounter", true);
             AppState.ppintCounter= await localSession.GetItemAsync<int>("intCounter");      
-        }
-    }
+        } 
+
+          PageHistoryState.AddPageToHistory("counter");
+          StateHasChanged();
+	}
 
     private async Task IncrementCount()
     {   

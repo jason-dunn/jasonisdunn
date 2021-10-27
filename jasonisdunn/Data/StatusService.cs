@@ -7,7 +7,6 @@ namespace jasonisdunn.Data
     public class StatusService
     {
         Status status = new Status();
-
         public Task<Status> CreateStatusAsync(bool _bool, Status valueStatus = null)
         {
             if (_bool)
