@@ -1,10 +1,11 @@
 ﻿h2 {
-    color: #448AFF;
+    color: #448AFF; 
 }
 
 h5 {
     color: #448AFF;
     font-size: 12pt;
+    margin-right: 8px;
 }
 
 .btn-primary {

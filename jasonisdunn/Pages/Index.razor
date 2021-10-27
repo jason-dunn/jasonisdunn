@@ -1,60 +1,46 @@
 ﻿@page "/"
-@page "/index/{CurrentGuid:guid?}"
-@page "/session/index"
+@page "/session/"
+@page "/index/{ppguidCurrentGuid:guid?}"
 @layout MainLayout
 @using jasonisdunn.Shared.Layouts;
 @using jasonisdunn.Shared.States;
 @using jasonisdunn.Data;
-@inject StatusService StatusService
+@using System;
+@using System.Linq;
+
 @inject MainState AppState
 @inject PageHistoryState PageHistoryState
 @inject Blazored.LocalStorage.ILocalStorageService localStore
 @inject Blazored.SessionStorage.ISessionStorageService localSession
 
-@if (status != null)
-{
-    @if (boolLoggedIn)
-    {
-        <h4>@emailaddress</h4>
-        <h4>@guid</h4>
-    }
-}
-
 @code{
-    private Status? status;
-    [Parameter]
-    public Guid? CurrentGuid { get; set; }
-    private Guid? guid;
-    private string  emailaddress;
-    [Parameter]
-    public bool _LoggedIn { get; set; }
-    private bool boolLoggedIn;
 
-    protected override async Task OnInitializedAsync()
+    [Parameter]
+    public Guid? ppguidCurrentGuid { get; set; }
+    private Guid CurrentGuid;
+
+    protected override void OnInitialized()
     {
-        AppState.ppboolLoggedIn= boolLoggedIn = await localSession.GetItemAsync<bool>("LoggedIn");
-        AppState.ppboolRegister = await localSession.GetItemAsync<bool>("Register");
-        if (Convert.ToBoolean(!boolLoggedIn) & Convert.ToBoolean(!AppState.ppboolLoggedIn))
-        {
-            AppState.SetLoggedInState(false);
-            AppState.OnChange += StateHasChanged;
-            PageHistoryState.AddPageToHistory("");
-        }
-        else
-        {
-            status = await StatusService.CreateStatusAsync(true);
-            status.LoggedIn = await localSession.GetItemAsync<bool>("LoggedIn");
-            status.UserName = await localSession.GetItemAsync<string>("UserName");
-            emailaddress = status.EmailAddress = await localSession.GetItemAsync<string>("EmailAddress");
-            guid = status.Guid = await localSession.GetItemAsync<Guid>("Guid");
-
-            status.Register = await localSession.GetItemAsync<bool>("Register");
-            AppState.ppboolRegister= status.Register;
-            AppState.SetLoggedInState(true);
-        }
-        StateHasChanged();
-        base.OnInitialized();
+        AppState.OnChange += StateHasChanged;
+        PageHistoryState.AddPageToHistory(""); 
     }
+
+    //protected override async Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    if (firstRender)
+    //    {
+
+    //    }
+    //    else
+    //    {
+
+    //    }
+    //}
+
+    //private async Task SetIndex()
+    //{
+    //    await localSession.SetItemAsync("index", true); 
+    //}
 }
 
 

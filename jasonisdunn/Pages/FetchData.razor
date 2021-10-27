@@ -48,12 +48,25 @@ else
     public bool _FetchData { get; set; }
     private bool boolFetchData;
 
-    protected override async Task OnInitializedAsync()
-    {     
+    protected override void OnInitialized()
+    {    
+        AppState.OnChange += StateHasChanged;
+        PageHistoryState.AddPageToHistory("fetchdata");
+    }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
         boolFetchData = await localSession.GetItemAsync<bool>("boolFetchData");
-        
-        if ( !boolFetchData & !AppState.ppboolFetchData )
+        if (firstRender)
+        {
+            await getInfo();
+            StateHasChanged();
+        }
+    }
+    private async Task getInfo()
+    {
+            boolFetchData = await localSession.GetItemAsync<bool>("boolFetchData");
+            if ( !boolFetchData & !AppState.ppboolFetchData )
             {
                 forecasts = await WeatherForecastService.CreateForecastAsync(DateTime.Now, true );
                 AppState.SetFetchDataState(true); 
@@ -64,19 +77,5 @@ else
                 forecasts = await WeatherForecastService.CreateForecastAsync(DateTime.Now, false);
                 await localSession.SetItemAsync("boolFetchData", true);      
             }
-             StateHasChanged();
-        PageHistoryState.AddPageToHistory("fetchdata");
-		base.OnInitialized();
     }
-    //protected override async Task OnAfterRenderAsync(bool firstRender)
-    //{
-    //    if (firstRender)
-    //    {
-
-    //    }
-    //    else
-    //    {
-
-    //    }
-    //}
 }

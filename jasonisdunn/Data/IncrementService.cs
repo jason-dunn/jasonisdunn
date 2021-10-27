@@ -8,7 +8,6 @@ namespace jasonisdunn.Data
     {
         Increment increment = new Increment();
         public int ppintCounter { get; set; }
-        private int intCounter;
 
         public Task<Increment> SetCounterAsync(int value)
         {
