@@ -50,10 +50,8 @@
 					</MudAppBar>		
 					<table class="hiddentable">
 						<tr>
-
 							<td></td>
 							<td>
-
 								<table class="maintable">
 									<tr style="height:3px">
 										<td colspan="10"></td>
@@ -97,10 +95,8 @@
 					</MudAppBar>		
 					<table class="hiddentable">
 						<tr>
-
 							<td></td>
 							<td>
-
 								<table class="maintable">
 									<tr style="height:3px">
 										<td colspan="10"></td>
@@ -184,8 +180,8 @@
 			<article class="content px-4">
 				@if (@AppState.ppboolLoggedIn)
 				{
-					<h2>@AppState.ppstrEmailAddress</h2>
-					<h2>@AppState.ppguidGuid</h2>
+					<h3>@AppState.ppstrEmailAddress</h3>
+					<h3>@AppState.ppguidGuid</h3>
 				}
 
 				@Body
@@ -361,8 +357,8 @@ else
 			<article class="content px-4">
 				@if (@AppState.ppboolLoggedIn)
 				{
-					<h2>@AppState.ppstrEmailAddress</h2>
-					<h2>@AppState.ppguidGuid</h2>
+					<h3>@AppState.ppstrEmailAddress</h3>
+					<h3>@AppState.ppguidGuid</h3>
 				}
 
 				@Body
@@ -450,7 +446,7 @@ else
 	{
 		NavigationManager.NavigateTo("email");
 	}
-		private async Task  NavigateToLogout()
+		private async Task NavigateToLogout()
 	{
 		    await localSession.RemoveItemAsync("LoggedIn");
 			AppState.SetLoggedInState(false);

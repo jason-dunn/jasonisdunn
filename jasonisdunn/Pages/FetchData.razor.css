@@ -12,6 +12,7 @@ h5 {
     width: 80%;
     font-size: 16pt;
     border-collapse: collapse;
+    margin-bottom: 10%;
 }
 .fetchdatatable th {
     text-align: left;

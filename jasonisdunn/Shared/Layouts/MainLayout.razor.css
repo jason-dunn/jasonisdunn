@@ -46,7 +46,7 @@ h5 {
 
 .my-toggle-off {
     background-color: #FFFFFF;
-    height: 100vh;
+    height: 50vh;
     width: 50px;
     position: sticky;
     top: 0;
@@ -54,7 +54,7 @@ h5 {
 
 .my-toggle-on {
     background-color: #FFFFFF;
-    height: 100vh;
+    height: 50vh;
     width: 50px;
     position: sticky;
     top: 0;

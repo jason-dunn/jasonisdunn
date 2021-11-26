@@ -7,7 +7,7 @@
       "sslPort": 0
     },
     "iisExpress": {
-      "applicationUrl": "http://localhost:50185",
+      "applicationUrl": "http://localhost:9535",
       "sslPort": 44375
     }
   },
@@ -27,10 +27,6 @@
       },
       "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "dotnetRunMessages": "true"
-    },
-    "winhost": {
-      "commandName": "IIS",
-      "launchUrl": "http://jasonisd.w32.wh-2.com"
     },
     "WSL": {
       "commandName": "WSL2",
