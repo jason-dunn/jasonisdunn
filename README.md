@@ -1,7 +1,7 @@
 # jasonisdunn
 .Net 5.0 Blazor Server App
 
-Working example on http://jasonisdunn.tech/session
+Working example on https://jasonisdunn.tech/session
 
 
 A realistic example of demostrating Blazored Session Storage. This application utilizes a real register/login process using a live SMTP email service.
